@@ -1,0 +1,83 @@
+.bottom {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+}
+.selectInput {
+  width: 70px;
+}
+
+.root {
+  background-color: #f9f7f75e;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 0px #0000001a;
+  padding: 5px;
+}
+.trowRoot {
+  padding: 5px;
+}
+.thead {
+  padding-top: 30px;
+  padding-bottom: 12px;
+}
+
+.corner {
+  display: none;
+}
+
+.thumb {
+  overflow: hidden;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 10px;
+  border-radius: 20px;
+  border-top-left-radius: 0px;
+  height: 5px;
+  background-color: #d5dbdd;
+  color: #eaeaea;
+}
+.thumb:hover {
+  background-color: #c1c1c1;
+}
+
+.pagination {
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #403f3f;
+  border: 1px solid #403f3f;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.control[data-active] {
+  border: 2px solid red;
+  color: red;
+  font-weight: 600;
+}
+
+.control:hover {
+  background-color: #f5f5f5;
+}
+
+.control[data-disabled] {
+  background-color: #c4cdd5 !important;
+  color: #ffffff !important;
+  cursor: not-allowed;
+  border: none;
+}
+
+.control[data-dots] {
+  background-color: transparent;
+  border: none;
+  color: #343a40;
+  font-weight: bold;
+}

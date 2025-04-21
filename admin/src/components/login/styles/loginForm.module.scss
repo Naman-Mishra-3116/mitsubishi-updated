@@ -1,0 +1,45 @@
+.rootCenter {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+
+  @media (max-width: 1000px) {
+    width: 70%;
+  }
+
+  @media (max-width: 400px) {
+    width: 85%;
+  }
+}
+
+.heading {
+  margin-bottom: 40px !important;
+
+  @media (max-width: 500px) {
+    font-size: 20px !important;
+    margin-bottom: 30px !important;
+  }
+}
+
+.errorBox {
+  margin-top: 30px;
+  text-align: center;
+  font-size: smaller;
+  padding: 6px;
+  border-radius: 4px;
+  color: black;
+  background: rgba(249, 202, 202, 0.504);
+  @media (max-width: 1000px) {
+    width: 70%;
+  }
+
+  @media (max-width: 400px) {
+    width: 85%;
+  }
+}

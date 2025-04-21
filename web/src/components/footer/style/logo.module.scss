@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.logo {
+  height: 40px;
+  width: 120px;
+  object-fit: contain;
+  display: flex;
+
+  @media (max-width: 500px) {
+    height: 40px;
+    width: auto;
+  }
+}
+
+.text {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #212529 !important;
+
+  @media (max-width: 500px) {
+    font-size: 16px !important;
+  }
+}

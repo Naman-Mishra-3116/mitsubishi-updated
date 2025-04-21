@@ -1,0 +1,70 @@
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-bottom: 50px;
+}
+
+.aimBox {
+  text-align: center;
+  padding: 6px 20px;
+  background-color: #ecd3d38c;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  align-self: center;
+  border-left: 3px solid #ed2721;
+  border-right: 3px solid #040c73;
+  .aim {
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+.root {
+  padding-top: 40px;
+  display: flex;
+  gap: 20px;
+}
+
+.right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.heading {
+  font-size: 42px;
+  font-weight: 500;
+  background: linear-gradient(to right, #ed2721, #040c73);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.desc {
+  color: rgb(14, 11, 11) !important;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.left {
+  padding-top: 20px;
+  width: 50%;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.vs {
+  border-color: #ed2721 !important;
+}
+
+.stepLabel {
+  font-weight: bold !important;
+  font-style: 20px !important;
+}
+
+.stepDesc {
+  color: black !important;
+}

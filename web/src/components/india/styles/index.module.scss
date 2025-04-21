@@ -1,0 +1,23 @@
+.top {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.aimBox {
+  text-align: center;
+  padding: 6px 20px;
+  background-color: #ecd3d38c;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  align-self: center;
+  border-left: 3px solid #ed2721;
+  border-right: 3px solid #040c73;
+  .aim {
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+

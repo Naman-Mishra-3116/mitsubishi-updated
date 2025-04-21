@@ -1,0 +1,38 @@
+.root {
+  padding-top: 100px;
+  padding-bottom: 20px;
+  height: calc(100vh - 90px);
+  display: flex;
+  gap: 20px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 50%;
+  .heading {
+    font-size: 60px;
+    font-weight: 500;
+    background: linear-gradient(to right, #ed2721, #040c73);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .desc {
+    color: rgb(14, 11, 11) !important;
+    font-weight: 300;
+    font-size: 20px;
+  }
+}
+
+.right {
+  width: 50%;
+  .image {
+    width: 650px;
+    height: 450px;
+    border-radius: 12px;
+    box-shadow: 0 3px 16px rgba(237, 40, 33, 0.821),
+      0 3px 16px rgba(66, 135, 245, 0.797);
+  }
+}

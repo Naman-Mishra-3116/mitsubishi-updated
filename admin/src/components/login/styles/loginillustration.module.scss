@@ -1,0 +1,41 @@
+.rightRoot {
+  background-color: #d7d2d2a6;
+}
+
+.center {
+  height: 100%;
+  background-color: #d7d2d2a6;
+}
+
+.box {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.spanStyle {
+  font-size: 26px;
+  font-style: italic;
+  font-weight: bold;
+
+  background: linear-gradient(90deg, #e0130b, #6f7374);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @media (max-width: 750px) {
+    font-size: 18px;
+  }
+}
+
+.image {
+  width: 290px;
+  height: 150px;
+
+  @media (max-width: 750px) {
+    width: 200px;
+    height: 120px;
+  }
+}

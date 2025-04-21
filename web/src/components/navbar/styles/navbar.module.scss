@@ -1,0 +1,72 @@
+.root {
+  background-color: #f1eeeeb6;
+  height: 100%;
+  width: 100%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 18px;
+  margin-bottom: 44px;
+}
+.tileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.tile {
+  width: 240px;
+  border-radius: 2px;
+  padding: 8px 24px;
+  background-color: #8c8b8b1c;
+  display: flex;
+
+  gap: 20px;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.8s ease, transform 0.3s ease,
+    box-shadow 0.2s ease;
+
+  .icon,
+  .tileText {
+    color: #2a2c37 !important;
+  }
+}
+
+.tile:hover {
+  background-color: #8c8b8b28;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.activeTile {
+  width: 240px;
+  padding: 8px 24px;
+  border-radius: 2px;
+  background-color: #d71a18;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  text-decoration: none;
+
+  .icon,
+  .tileText {
+    color: white !important;
+  }
+}
+
+.text {
+  font-size: 16;
+  font-weight: 500;
+  margin-left: 10;
+  text-decoration: none;
+  color: black;
+  margin-inline: 5px;
+}

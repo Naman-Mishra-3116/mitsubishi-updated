@@ -1,0 +1,70 @@
+.root {
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  background-color: rgba(255, 255, 255, 0.59);
+  display: flex;
+  height: 85px;
+  padding: 15px 60px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.imageContainer {
+  flex-direction: column;
+  gap: 8px;
+  display: flex;
+}
+
+.spanStyle {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+
+  background: linear-gradient(90deg, #e0130b, #4c5152);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.button {
+  width: 120px;
+  padding: 8px 12px !important;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none !important;
+  text-align: center !important;
+
+  &:hover {
+    background: #ca1a10 !important;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.link {
+  text-decoration: none;
+  color: #e0130b !important;
+  font-weight: bold;
+  font-size: 20px;
+  transition: text-decoration 0.3s ease;
+}
+
+.link:hover {
+  color: #ca1a10;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+.active {
+  color: #ca1a10;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}

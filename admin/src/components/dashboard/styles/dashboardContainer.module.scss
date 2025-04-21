@@ -1,0 +1,23 @@
+.root {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 10px;
+}
+
+@media (max-width: 1200px) {
+  .root {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 740px) {
+  .root {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    row-gap: 40px;
+  }
+}

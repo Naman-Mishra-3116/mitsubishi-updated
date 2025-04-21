@@ -1,0 +1,42 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 100px;
+  border-radius: 24px !important;
+  padding: 16px 24px;
+  background-color: rgba(255, 255, 255, 0.715) !important;
+  height: 100%;
+  border: 1px solid #75757526;
+  align-items: center;
+}
+
+.img {
+  width: 120px;
+  height: 120px;
+}
+
+.collegeName {
+  text-align: center !important;
+  font-weight: 600;
+  font-size: 22px !important;
+  font-style: italic;
+  color: #213555 !important;
+  line-height: 30px;
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .icon {
+    width: 14px !important;
+    height: 14px;
+  }
+}
+
+.city {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}

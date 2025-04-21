@@ -1,0 +1,11 @@
+.input {
+  border: 1.5px solid #d1d1d1;
+  background-color: white;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border: 1.5px solid #10100f;
+  border-radius: 4px;
+}

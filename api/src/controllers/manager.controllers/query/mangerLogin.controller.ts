@@ -4,6 +4,7 @@ import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import bcrypt from "bcryptjs";
 import { JwtConfig } from "../../../config/jwtConfig";
 import { jsonResponse } from "../../../utils/jsonResponse";
+import { IATCDocument } from "../../../interface/iATCDocument";
 
 export const managerLogin = async (
   req: Request,
@@ -11,7 +12,7 @@ export const managerLogin = async (
   next: NextFunction
 ) => {
   const { email, password } = req.body;
-  const manager = await ATCManager.findOne({ email });
+  const manager = await ATCManager.findOne({ email }).populate("listOfATC");
 
   if (!manager) {
     return next(
@@ -24,6 +25,16 @@ export const managerLogin = async (
   }
 
   if (!manager.active) {
+    return next(
+      new ErrorResponse(
+        ErrorType.BAD_REQUEST,
+        "Forbidden Access",
+        "Your access to this application has been blocked by Senior Admin"
+      )
+    );
+  }
+
+  if (!(manager.listOfATC as IATCDocument).active) {
     return next(
       new ErrorResponse(
         ErrorType.BAD_REQUEST,

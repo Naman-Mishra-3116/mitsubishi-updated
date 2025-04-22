@@ -1,4 +1,5 @@
 import { Document, Types } from "mongoose";
+import { IATCDocument } from "./iATCDocument";
 
 export interface IATCManager extends Document {
   active: boolean;
@@ -7,5 +8,5 @@ export interface IATCManager extends Document {
   email: string;
   password: string;
   phoneNumber: string;
-  listOfATC: Types.ObjectId;
+  listOfATC: Types.ObjectId | IATCDocument;
 }

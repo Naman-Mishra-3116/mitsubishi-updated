@@ -3,6 +3,7 @@ import { AdminUser } from "../models/adminUser.model";
 import mongoose from "mongoose";
 import { ErrorResponse, ErrorType } from "../utils/customError";
 import { ATCManager } from "../models/manager.model";
+import { IATCDocument } from "../interface/iATCDocument";
 
 export const validateAccess = (name: "admin" | "managers") => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +27,7 @@ export const validateAccess = (name: "admin" | "managers") => {
     if (name === "managers") {
       const manager = await ATCManager.findById(
         new mongoose.Types.ObjectId(id)
-      );
+      ).populate("listOfATC");
       if (manager && manager.dataChanged) {
         manager.dataChanged = false;
         await manager.save();
@@ -40,7 +41,7 @@ export const validateAccess = (name: "admin" | "managers") => {
         );
       }
 
-      if (manager && !manager.active) {
+      if (manager && (!manager.active || !(manager.listOfATC as IATCDocument).active)) {
         res.clearCookie("token");
         return next(
           new ErrorResponse(

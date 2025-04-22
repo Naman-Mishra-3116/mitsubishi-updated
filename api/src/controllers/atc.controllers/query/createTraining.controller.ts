@@ -8,10 +8,9 @@ export const createTraining = async (
 ) => {
   let trainingImagePaths: string[] = [];
   let attendencePath: string | undefined;
-  let feedbackPath: string | undefined;
   const files = req.files as IFiles;
-  const { atcId, startDate, endDate, totalStudents, title, description } =
-    req.body;
+  const { startDate, endDate, totalStudents, title, description } = req.body;
+  const { atcId } = res.locals.userData;
 
   if (files?.["trainingImages"]) {
     trainingImagePaths = files["trainingImages"].map(
@@ -27,17 +26,10 @@ export const createTraining = async (
     );
   }
 
-  if (files["feedback"] && files["feedback"].length > 0) {
-    feedbackPath = getFilePaths(
-      req,
-      "trainings",
-      files["feedback"][0].filename
-    );
-  }
+  
 
   res.status(200).json({
     trainingImagePaths,
     attendencePath,
-    feedbackPath,
   });
 };

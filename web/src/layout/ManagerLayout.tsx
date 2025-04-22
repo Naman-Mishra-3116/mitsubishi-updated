@@ -6,22 +6,26 @@ import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { useRouter } from "next/navigation";
-import { memo, ReactNode, useEffect } from "react";
+import { memo, ReactNode, useEffect, useState } from "react";
 interface IProps {
   children: ReactNode;
 }
 
 const ManagerLayout: React.FC<IProps> = ({ children }) => {
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated === false && loading === false) {
       router.push("/");
+    } else {
+      setLoading(false);
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, loading]);
+
 
   return (
     <AppShell

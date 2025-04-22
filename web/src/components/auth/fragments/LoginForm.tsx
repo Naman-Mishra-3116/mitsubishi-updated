@@ -17,20 +17,16 @@ import { useRouter } from "next/navigation";
 import React, { FormEvent, memo, useEffect } from "react";
 import classes from "../styles/loginForm.module.scss";
 
-interface IProps {
-  temp?: string;
-}
-
-const LoginForm: React.FC<IProps> = () => {
+const LoginForm: React.FC = () => {
   const form = useForm({
     initialValues: loginFormInitial,
     validate: yupResolver(loginFormValidation),
   });
 
-  const router = useRouter();
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const { mutateAsync } = useATCLoginMutation();
   const queryClient = useQueryClient();
+  const router = useRouter();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) {

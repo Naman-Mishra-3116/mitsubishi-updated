@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { getFilePaths } from "../../../utils/getFilePaths";
+import { Training } from "../../../models/training.model";
+import { ErrorResponse, ErrorType } from "../../../utils/customError";
+import { jsonResponse } from "../../../utils/jsonResponse";
 
 export const createTraining = async (
   req: Request,
@@ -26,8 +29,39 @@ export const createTraining = async (
     );
   }
 
-  res.status(200).json({
-    trainingImagePaths,
-    attendencePath,
+  const existingTraining = await Training.findOne({
+    atcId,
+    title,
+    startDate: { $lte: endDate },
+    endDate: { $gte: startDate },
+  });
+
+  if (existingTraining) {
+    return next(
+      new ErrorResponse(
+        ErrorType.BAD_REQUEST,
+        "This training has already been added to the database for your ATC in the given date range",
+        "This training has already been added to the database for your ATC in the given date range"
+      )
+    );
+  }
+
+  const newTraining = await Training.create({
+    atcId,
+    startDate,
+    endDate,
+    title,
+    description,
+    totalStudents,
+    trainingImages: trainingImagePaths,
+    attendence: attendencePath,
+    isApproved: false,
+  });
+
+  return jsonResponse(res, {
+    status: "success",
+    statusCode: 200,
+    title: "Training Created Successfully!",
+    data: newTraining._id,
   });
 };

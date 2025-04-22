@@ -43,11 +43,6 @@ const trainingSchema = new mongoose.Schema<ITrainingDocument>(
       type: String,
       required: true,
     },
-
-    feedback: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );

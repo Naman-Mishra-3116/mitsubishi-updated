@@ -10,6 +10,7 @@ interface AuthState {
     atcName: string;
   };
   isAuthenticated: boolean;
+  profileCompleted: boolean;
 }
 
 const initialState: AuthState = {
@@ -21,7 +22,7 @@ const initialState: AuthState = {
     phoneNumber: "",
     atcName: "",
   },
-
+  profileCompleted: false,
   isAuthenticated: false,
 };
 
@@ -32,6 +33,7 @@ const authSlice = createSlice({
     setUserData(state, action: PayloadAction<AuthState>) {
       state.user = action.payload.user;
       state.isAuthenticated = action.payload.isAuthenticated;
+      state.profileCompleted = action.payload.profileCompleted;
     },
 
     logoutUser(state) {
@@ -44,6 +46,7 @@ const authSlice = createSlice({
         phoneNumber: "",
       };
       state.isAuthenticated = false;
+      state.profileCompleted = false;
     },
   },
 });

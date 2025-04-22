@@ -15,10 +15,19 @@ const ProfilerFetcher: React.FC<IProps> = ({ children }) => {
 
   useEffect(() => {
     if (data?.status === "success") {
-      const { id, atcId, fullName, email, phoneNumber, atcName } = data?.data;
+      const {
+        id,
+        atcId,
+        fullName,
+        email,
+        phoneNumber,
+        atcName,
+        profileCompleted,
+      } = data?.data;
       dispatch(
         setUserData({
           isAuthenticated: true,
+          profileCompleted: profileCompleted,
           user: {
             atcName,
             atcId,

@@ -38,10 +38,10 @@ const Profile = () => {
         message: res.message,
         color: "green",
       });
+      router.push("/");
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.GET_MANAGER_LOGIN_DATA],
       });
-      router.push("/");
     }
   };
 

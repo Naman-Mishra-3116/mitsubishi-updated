@@ -3,5 +3,8 @@ export enum ROUTES {
   CENTER = "/centers",
   CALENDER = "/calender",
   HOME = "/",
-  ATC = "/atc/",
+  DASHBOARD = "/atc",
+  CREATE_TRAINING = "/atc/create-training",
+  ALL_TRAINING = "/atc/all-training",
+  COLLEGE_PROFILE = "/atc/college-profile",
 }

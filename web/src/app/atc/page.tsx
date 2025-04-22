@@ -1,8 +1,7 @@
-import CollegeContainer from "@/components/college/fragments/CollegeContainer";
 import React, { memo } from "react";
 
 const page: React.FC = () => {
-  return <CollegeContainer />;
+  return <>Dashboard container</>;
 };
 
 export default memo(page);

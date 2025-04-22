@@ -10,6 +10,7 @@ import styles from "../styles/navbar.module.scss";
 
 const Navbar: React.FC = () => {
   const pathname = usePathname();
+  console.log("pathname is", pathname);
   return (
     <Box className={styles.root}>
       <Link href={"/"} style={{ textDecoration: "none" }}>

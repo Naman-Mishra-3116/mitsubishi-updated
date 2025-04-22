@@ -51,5 +51,6 @@ export const completeCollegeProfile = async (
     status: "success",
     statusCode: 200,
     title: "Profile Completed Successfully!",
+    message: "Profile Updated successfully!",
   });
 };

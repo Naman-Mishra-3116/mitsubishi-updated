@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ATC } from "../../../models/atc.model";
+import { CollegeModel } from "../../../models/college.model";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import { getFilePaths } from "../../../utils/getFilePaths";
-import { CollegeModel } from "../../../models/college.model";
-import { getLatitudeAndLongitude } from "../../../utils/getLocation";
 import { jsonResponse } from "../../../utils/jsonResponse";
 
 export const completeCollegeProfile = async (
@@ -12,9 +11,9 @@ export const completeCollegeProfile = async (
   next: NextFunction
 ) => {
   const { atcId } = res.locals.userData;
-  const collegeId = await ATC.findById(atcId).select("collegeID");
+  const atcData = await ATC.findById(atcId).select("collegeID");
 
-  if (!collegeId) {
+  if (!atcData) {
     return next(
       new ErrorResponse(
         ErrorType.BAD_REQUEST,
@@ -25,17 +24,18 @@ export const completeCollegeProfile = async (
   }
 
   const collegeLogo = getFilePaths(req, "images", req?.file?.filename);
-  const { collegeName, collegeCity, nameOfHOD } = req.body;
-  const { latitude, longitude } = await getLatitudeAndLongitude(collegeCity);
-  const newData = await CollegeModel.findByIdAndUpdate(collegeId, {
-    collegeCity,
-    nameOfHOD,
-    collegeName,
-    latitude,
-    longitude,
-    collegeLogo,
-    profileCompleted: true,
-  });
+  const { collegeName, nameOfHOD } = req.body;
+
+  const newData = await CollegeModel.findByIdAndUpdate(
+    atcData.collegeID,
+    {
+      nameOfHOD,
+      collegeName,
+      collegeLogo,
+      profileCompleted: true,
+    },
+    { new: true }
+  );
 
   if (!newData) {
     return next(
@@ -52,5 +52,4 @@ export const completeCollegeProfile = async (
     statusCode: 200,
     title: "Profile Completed Successfully!",
   });
-  
 };

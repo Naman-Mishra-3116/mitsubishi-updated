@@ -11,7 +11,7 @@ const updateCollegeProfile = async (data: FormData) => {
   return resp;
 };
 
-export const useCompleteProfileMuatation = () => {
+export const useCompleteProfileMutation = () => {
   return useMutation({
     mutationFn: updateCollegeProfile,
   });

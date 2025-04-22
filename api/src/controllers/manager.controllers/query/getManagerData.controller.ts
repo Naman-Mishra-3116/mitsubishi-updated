@@ -12,7 +12,7 @@ export const getManagerLoginData = async (
 ) => {
   const { id, atcId } = res.locals.userData;
   const manager = await ATCManager.findById(id).select("-password");
-  const atc = await ATC.findById(id).populate("collegeID");
+  const atc = await ATC.findById(atcId).populate("collegeID");
 
   if (!manager) {
     return next(

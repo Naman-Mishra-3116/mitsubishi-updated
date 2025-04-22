@@ -1,7 +1,9 @@
 export enum API_URL {
   MAP_DATA = "/general/mapData",
   GET_CENTER = "/general/centers",
+  MANAGER_LOGOUT = "/general/logout",
   MANAGER_LOGIN = "/manager/login",
   MANAGER_LOGIN_DATA = "/manager/loginData",
-  MANAGER_LOGOUT = "/general/logout",
+  COLLEGE_PROFILE_DATA = "/manager/collegeProfile",
+  COMPLETE_COLLEGE_PROFILE = "/manager/completeProfile",
 }

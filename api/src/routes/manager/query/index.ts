@@ -2,6 +2,7 @@ import { Router } from "express";
 import validateJWTToken from "../../../middleware/validateToken.middleware";
 import controllers from "../../../controllers";
 import { validateAccess } from "../../../middleware/validateAccess.middleware";
+import { UploadFile } from "../../../middleware/multer.middleware";
 
 export const mountManagerRouter = (router: Router) => {
   router.get(
@@ -33,5 +34,18 @@ export const mountManagerRouter = (router: Router) => {
     validateJWTToken,
     validateAccess("managers"),
     controllers.managerControllers.getManagerLoginData
+  );
+
+  router.post(
+    "/completeProfile",
+    validateJWTToken,
+    UploadFile.single("collegeLogo"),
+    controllers.managerControllers.completeCollegeProfile
+  );
+
+  router.get(
+    "/collegeProfile",
+    validateJWTToken,
+    controllers.managerControllers.getCollegeProfile
   );
 };

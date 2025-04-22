@@ -7,6 +7,12 @@ const collegeSchema = new Schema<ICollegeDocument>({
     required: true,
   },
 
+  profileCompleted: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+
   collegeName: {
     type: String,
     unique: true,

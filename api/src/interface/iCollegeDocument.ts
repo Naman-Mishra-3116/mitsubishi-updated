@@ -7,4 +7,5 @@ export interface ICollegeDocument extends Document {
   nameOfHOD: string;
   latitude: number;
   longitude: number;
+  profileCompleted: boolean;
 }

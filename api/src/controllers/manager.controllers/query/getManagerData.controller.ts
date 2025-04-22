@@ -3,6 +3,7 @@ import { ATCManager } from "../../../models/manager.model";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import { jsonResponse } from "../../../utils/jsonResponse";
 import { ATC } from "../../../models/atc.model";
+import { ICollegeDocument } from "../../../interface/iCollegeDocument";
 
 export const getManagerLoginData = async (
   req: Request,
@@ -11,7 +12,7 @@ export const getManagerLoginData = async (
 ) => {
   const { id, atcId } = res.locals.userData;
   const manager = await ATCManager.findById(id).select("-password");
-  const atc = await ATC.findById(id);
+  const atc = await ATC.findById(id).populate("collegeID");
 
   if (!manager) {
     return next(
@@ -34,6 +35,7 @@ export const getManagerLoginData = async (
       email: manager.email,
       phoneNumber: manager.phoneNumber,
       atcName: atc?.atcName,
+      profileCompleted: (atc?.collegeID as ICollegeDocument).profileCompleted,
     },
     message: "Manager Data fetched successfully!",
   });

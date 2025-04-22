@@ -26,8 +26,6 @@ export const createTraining = async (
     );
   }
 
-  
-
   res.status(200).json({
     trainingImagePaths,
     attendencePath,

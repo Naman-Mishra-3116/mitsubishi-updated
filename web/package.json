@@ -11,6 +11,7 @@
   "dependencies": {
     "@mantine/carousel": "^7.17.4",
     "@mantine/core": "^7.17.4",
+    "@mantine/dates": "^7.17.4",
     "@mantine/dropzone": "^7.17.4",
     "@mantine/form": "^7.17.4",
     "@mantine/hooks": "^7.17.4",
@@ -22,6 +23,7 @@
     "@tabler/icons-react": "^3.31.0",
     "@tanstack/react-query": "^5.74.4",
     "axios": "^1.8.4",
+    "dayjs": "^1.11.13",
     "embla-carousel-autoplay": "^7.1.0",
     "embla-carousel-react": "^7.1.0",
     "next": "15.3.0",
@@ -34,6 +36,7 @@
     "react-simple-maps": "^3.0.0",
     "react-simple-typewriter": "^5.0.1",
     "sass": "^1.86.3",
+    "xlsx": "^0.18.5",
     "yup": "^1.6.1"
   },
   "devDependencies": {

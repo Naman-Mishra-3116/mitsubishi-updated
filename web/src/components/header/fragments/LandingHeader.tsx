@@ -51,15 +51,16 @@ const LandingHeader: React.FC = () => {
           Calender
         </Link>
 
-        <MButton
-          color="red"
-          href={isAuthenticated ? ROUTES.ATC : ROUTES.LOGIN}
-          text={isAuthenticated ? "Go to ATC" : "Login"}
-          textColor="white"
-          variant="filled"
-          radius="sm"
-          className={classes.button}
-        />
+        <Link href={isAuthenticated ? ROUTES.DASHBOARD : ROUTES.LOGIN}>
+          <MButton
+            color="red"
+            text={isAuthenticated ? "Go to ATC" : "Login"}
+            textColor="white"
+            variant="filled"
+            radius="sm"
+            className={classes.button}
+          />
+        </Link>
       </Box>
     </Box>
   );

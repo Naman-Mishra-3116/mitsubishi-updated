@@ -38,7 +38,6 @@ const mountATCRouter = (router: Router) => {
     UploadFile.fields([
       { name: "trainingImages", maxCount: 5 },
       { name: "attendence", maxCount: 1 },
-      { name: "feedback", maxCount: 1 },
     ]),
     controllers.atcControllers.createTraining
   );

@@ -40,7 +40,10 @@ type IProps =
   | (BaseProps<"file"> & { accept: string })
   | (BaseProps<"select"> & { data: string[] })
   | BaseProps<
-      Exclude<"text" | "password" | "number" | "textarea", "file" | "select">
+      Exclude<
+        "text" | "password" | "number" | "textarea",
+        "file" | "select" | "date"
+      >
     >;
 
 const MInput: React.FC<IProps> = ({

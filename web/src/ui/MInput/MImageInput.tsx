@@ -41,7 +41,7 @@ const MImageInput: React.FC<IProps> = ({
     if (file) {
       openImageCropperModal(file, setCroppedFile, cropShape, aspectRatio);
     }
-  }, [file]);
+  }, [file, aspectRatio, cropShape]);
 
   useEffect(() => {
     if (croppedFile) {
@@ -50,7 +50,7 @@ const MImageInput: React.FC<IProps> = ({
       handleFormSave(croppedFile);
       return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [croppedFile]);
+  }, [croppedFile, handleFormSave]);
 
   const handleClickDelete = () => {
     setFile(undefined);

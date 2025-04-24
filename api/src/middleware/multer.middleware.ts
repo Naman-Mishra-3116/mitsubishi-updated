@@ -18,9 +18,11 @@ const fileFilter = (
   cb: FileFilterCallback
 ) => {
   if (
-    ["image/jpeg", "image/png", "application/vnd.ms-excel"].includes(
-      file.mimetype
-    )
+    [
+      "image/jpeg",
+      "image/png",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ].includes(file.mimetype)
   ) {
     cb(null, true);
   } else {

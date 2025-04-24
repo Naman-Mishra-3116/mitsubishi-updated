@@ -35,6 +35,7 @@ const mountATCRouter = (router: Router) => {
 
   router.post(
     "/createTraining",
+    validateJWTToken,
     UploadFile.fields([
       { name: "trainingImages", maxCount: 5 },
       { name: "attendence", maxCount: 1 },

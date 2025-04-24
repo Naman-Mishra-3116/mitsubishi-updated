@@ -6,4 +6,5 @@ export enum API_URL {
   MANAGER_LOGIN_DATA = "/manager/loginData",
   COLLEGE_PROFILE_DATA = "/manager/collegeProfile",
   COMPLETE_COLLEGE_PROFILE = "/manager/completeProfile",
+  CREATE_TRAINING = "/atc/createTraining",
 }

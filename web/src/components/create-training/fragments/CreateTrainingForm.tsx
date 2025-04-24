@@ -19,12 +19,13 @@ import {
   validateExcelColumns,
 } from "@/validation/createTrainingValidator";
 import { notifications } from "@mantine/notifications";
+import { useCreateTrainingMutation } from "@/hooks/mutation/useCreateTrainingMutation.mutation";
 
 type FormValues = {
   title: string;
   description: string;
-  startDate: string | null;
-  endDate: string | null;
+  startDate: string;
+  endDate: string;
   attendence: File | null;
   totalStudents: number;
   trainingImages: File[];
@@ -36,6 +37,7 @@ const CreateTrainingForm: React.FC = () => {
     validate: yupResolver(trainingFormSchema),
   });
 
+  const { mutateAsync } = useCreateTrainingMutation();
   const handleSubmit = async (values: typeof form.values) => {
     const isExcelValid = await validateExcelColumns(values.attendence);
     if (!isExcelValid) {
@@ -51,7 +53,25 @@ const CreateTrainingForm: React.FC = () => {
       });
       return;
     }
-    console.log(values);
+    console.log(values.attendence);
+    const fd = new FormData();
+    fd.append("attendence", values.attendence as File);
+    fd.append("startDate", values.startDate);
+    fd.append("endDate", values.endDate);
+    fd.append("title", values.title);
+    fd.append("description", values.description);
+    fd.append("totalStudents", values.totalStudents.toString());
+    if (values.trainingImages) {
+      values.trainingImages.forEach((item) => {
+        fd.append("trainingImages", item);
+      });
+    }
+
+    const resp = await mutateAsync(fd);
+    notifications.show({
+      message: resp.message,
+      color: resp.status === "success" ? "green" : "red",
+    });
   };
 
   const handleDrop = (files: File[]) => {
@@ -79,7 +99,7 @@ const CreateTrainingForm: React.FC = () => {
         <MTypography
           className={classes.subHeading}
           variant="subTitle"
-          text=""
+          text="fill all the details about the training"
           color="white"
         />
       </Box>

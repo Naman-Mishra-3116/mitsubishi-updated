@@ -62,6 +62,7 @@ export const createTraining = async (
     status: "success",
     statusCode: 200,
     title: "Training Created Successfully!",
+    message: "Training Record Added successfully!",
     data: newTraining._id,
   });
 };

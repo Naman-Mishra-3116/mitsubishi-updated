@@ -51,7 +51,7 @@ export const mountManagerRouter = (router: Router) => {
 
   router.get(
     "/allTraining",
-    // validateJWTToken,
+    validateJWTToken,
     controllers.managerControllers.getAllATCTraining
   );
 };

@@ -1,6 +1,7 @@
 import { TTableColumns } from "@/types/table";
 import MActionIcon from "@/ui/MActionIcon/MActionIcon";
-import { Badge, Flex } from "@mantine/core";
+import { Badge, Flex, Text } from "@mantine/core";
+import dayjs from "dayjs";
 
 type Training = {
   _id: string;
@@ -24,10 +25,17 @@ export const AllTrainingColumns: TTableColumns<Training>[] = [
   {
     key: "startDate",
     label: "Start Date",
+    renderCell(item) {
+      return <Text>{dayjs(item.startDate).format("DD MMM YYYY")}</Text>;
+    },
   },
   {
     key: "endDate",
     label: "End Date",
+    minWidth:0,
+    renderCell(item) {
+      return <Text>{dayjs(item.endDate).format("DD MMM YYYY")}</Text>;
+    },
   },
   {
     key: "totalStudents",
@@ -43,9 +51,7 @@ export const AllTrainingColumns: TTableColumns<Training>[] = [
           <MActionIcon href="/" variant="redirect" toolTip="view details" />
         </Flex>
       ) : (
-        <>
-          <Badge color="red">Pending</Badge>
-        </>
+        <Badge color="red">Pending</Badge>
       );
     },
   },

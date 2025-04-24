@@ -58,7 +58,7 @@ export const managerLogin = async (
   const token = JwtConfig.assignToken({
     id: manager._id as string,
     expiresIn: "12h",
-    atcId: manager.listOfATC as unknown as string,
+    atcId: manager.listOfATC._id as string,
   });
 
   res.cookie("token", token, {

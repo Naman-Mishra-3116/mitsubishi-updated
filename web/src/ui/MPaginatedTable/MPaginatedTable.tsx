@@ -16,7 +16,7 @@ import { ITableProps } from "@/types/table";
 import MPagination from "./MPagination";
 import classes from "./index.module.scss";
 import MTypography from "../MTypography/MTypography";
-import { PAGINATION_CONSTANT } from "@/constants/pagination";
+import { CONSTANT } from "@/enums/constants.enum";
 
 const MPaginatedTable: React.FC<ITableProps<any>> = (props) => {
   const { columns, data, paginationProps, isLoading } = props;
@@ -107,7 +107,7 @@ const MPaginatedTable: React.FC<ITableProps<any>> = (props) => {
         )}
       </ScrollArea>
       {paginationProps?.page &&
-        paginationProps?.totalDocuments > PAGINATION_CONSTANT.PAGE_LIMIT && (
+        paginationProps?.totalDocuments > CONSTANT.TRAINING_PAGE_LIMIT && (
           <MPagination {...paginationProps} />
         )}
     </Box>

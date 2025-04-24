@@ -1,3 +1,235 @@
+q1: 
+
+code: 
+
+import { randomUUID } from "crypto";
+import { Request } from "express";
+import multer, { diskStorage, FileFilterCallback } from "multer";
+import path from "path";
+
+export const IMAGE_STORAGE_PATH = path.join(
+  __dirname,
+  "../../../uploads/images"
+);
+export const XLSX_STORAGE_PATH = path.join(
+  __dirname,
+  "../../../uploads/trainings"
+);
+
+const fileFilter = (
+  _req: Request,
+  file: Express.Multer.File,
+  cb: FileFilterCallback
+) => {
+  if (
+    [
+      "image/jpeg",
+      "image/png",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ].includes(file.mimetype)
+  ) {
+    cb(null, true);
+  } else {
+    console.log("invalid mime type: ", file.mimetype);
+    cb(null, false);
+  }
+};
+
+const storage = diskStorage({
+  destination: (_req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, IMAGE_STORAGE_PATH);
+    } else {
+      cb(null, XLSX_STORAGE_PATH);
+    }
+  },
+  filename: (_req, file, cb) => {
+    const uniqueId = randomUUID() + "-" + Date.now();
+    const ext = path.extname(file.originalname);
+    cb(null, `${file.fieldname}-${uniqueId}${ext}`);
+  },
+});
+
+export const UploadFile = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 1024 * 1024 * 10 },
+});
+
+
+-----------------------------------------------
+
+q2: 
+
+import { Router } from "express";
+import validateJWTToken from "../../../middleware/validateToken.middleware";
+import controllers from "../../../controllers";
+import { UploadFile } from "../../../middleware/multer.middleware";
+
+const mountATCRouter = (router: Router) => {
+  router.post(
+    "/createATC",
+    validateJWTToken,
+    UploadFile.single("atcImage"),
+    controllers.atcControllers.createATC
+  );
+  router.get("/allATC", validateJWTToken, controllers.atcControllers.getAllATC);
+
+  router.post(
+    "/updateStatus/:id",
+    validateJWTToken,
+    controllers.atcControllers.changeStatus
+  );
+
+  router.post(
+    "/updateStatus/:id",
+    validateJWTToken,
+    controllers.atcControllers.changeStatus
+  );
+
+  router.post(
+    "/edit/:id",
+    validateJWTToken,
+    UploadFile.single("atcImage"),
+    controllers.atcControllers.editATCById
+  );
+
+  router.get("/:id", validateJWTToken, controllers.atcControllers.getATCById);
+
+  router.post(
+    "/createTraining",
+    validateJWTToken,
+    UploadFile.fields([
+      { name: "trainingImages", maxCount: 5 },
+      { name: "attendence", maxCount: 1 },
+    ]),
+    controllers.atcControllers.createTraining
+  );
+};
+export default mountATCRouter;
+
+import { NextFunction, Request, Response } from "express";
+import { getFilePaths } from "../../../utils/getFilePaths";
+import { Training } from "../../../models/training.model";
+import { ErrorResponse, ErrorType } from "../../../utils/customError";
+import { jsonResponse } from "../../../utils/jsonResponse";
+
+export const createTraining = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let trainingImagePaths: string[] = [];
+  let attendencePath: string | undefined;
+  const files = req.files as IFiles;
+  const { startDate, endDate, totalStudents, title, description } = req.body;
+  const { atcId } = res.locals.userData;
+
+  if (files?.["trainingImages"]) {
+    trainingImagePaths = files["trainingImages"].map(
+      (file: Express.Multer.File) => getFilePaths(req, "images", file.filename)
+    ) as string[];
+  }
+
+  if (files["attendence"] && files["attendence"].length > 0) {
+    attendencePath = getFilePaths(
+      req,
+      "trainings",
+      files["attendence"][0].filename
+    );
+  }
+
+  const existingTraining = await Training.findOne({
+    atcId,
+    title,
+    startDate: { $lte: endDate },
+    endDate: { $gte: startDate },
+  });
+
+  if (existingTraining) {
+    return next(
+      new ErrorResponse(
+        ErrorType.BAD_REQUEST,
+        "This training has already been added to the database for your ATC in the given date range",
+        "This training has already been added to the database for your ATC in the given date range"
+      )
+    );
+  }
+
+  const newTraining = await Training.create({
+    atcId,
+    startDate,
+    endDate,
+    title,
+    description,
+    totalStudents,
+    trainingImages: trainingImagePaths,
+    attendence: attendencePath,
+    isApproved: false,
+  });
+
+  return jsonResponse(res, {
+    status: "success",
+    statusCode: 200,
+    title: "Training Created Successfully!",
+    message: "Training Record Added successfully!",
+    data: newTraining._id,
+  });
+};
+
+
+
+
+-------------------------------------------------
+
+q3: 
+
+"use client";
+import { Box } from "@mantine/core";
+import React, { memo } from "react";
+import classes from "../styles/dashboardContainer.module.scss";
+import DashboardCard from "./DashboardCard";
+import { ICONS } from "@/assets/icons";
+import { useGetDashboardData } from "@/hooks/query/useGetDashboardStats.query";
+
+const DashBoardContainer: React.FC = () => {
+  const { data } = useGetDashboardData();
+  return (
+    <Box className={classes.root}>
+      <DashboardCard
+        Icon={ICONS.adminIcon}
+        name="Admins"
+        figure={data?.data?.totalAdmins ?? 0}
+        lastUpdated="today"
+      />
+      <DashboardCard
+        Icon={ICONS.atcIcon}
+        name="Training Centers"
+        figure={data?.data?.totalATCs ?? 0}
+        lastUpdated="today"
+      />
+      <DashboardCard
+        Icon={ICONS.trainingIcon}
+        name="Trainings"
+        figure={data?.data?.totalTrainings ?? 0}
+        lastUpdated="today"
+      />
+      <DashboardCard
+        lastUpdated="today"
+        Icon={ICONS.studentIcon}
+        name="Students trained"
+        figure={data?.data?.totalStudents ?? 0}
+      />
+    </Box>
+  );
+};
+
+export default memo(DashBoardContainer);
+
+-----------------------------------------------------
+
+q4:
+
 "use client";
 import MButton from "@/ui/MButton/MButton";
 import openImageCropperModal from "@/ui/MImageCropper/fragments/openCropperModal";
@@ -38,9 +270,7 @@ const CreateTrainingForm: React.FC = () => {
   });
 
   const { mutateAsync } = useCreateTrainingMutation();
-  const handleSubmit: (data: typeof form.values) => Promise<void> = async (
-    values: typeof form.values
-  ) => {
+  const handleSubmit = async (values: typeof form.values) => {
     const isExcelValid = await validateExcelColumns(values.attendence);
     if (!isExcelValid) {
       form.setFieldError(
@@ -293,3 +523,48 @@ const CreateTrainingForm: React.FC = () => {
 };
 
 export default memo(CreateTrainingForm);
+
+
+
+--------------------------------------------
+
+q5:
+
+import { API_URL } from "@/enums/apiUrls.enum";
+import { QUERY_KEY } from "@/enums/queryKey.enum";
+import { request } from "@/services/axios.service";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchData = async (data: PaginationProps) => {
+  const resp = await request({
+    url: API_URL.GET_ALL_TRAINING,
+    method: "GET",
+    data,
+  });
+
+  return resp;
+};
+
+export const useGetATCTrainings = (data: PaginationProps) => {
+  return useQuery({
+    queryFn: () => fetchData(data),
+    queryKey: [QUERY_KEY.TRAINING_DATA],
+  });
+};
+
+
+import { Request } from "express";
+
+export const getFilePaths = (
+  req: Request,
+  directory: "images" | "trainings",
+  fileName: string | undefined
+) => {
+  if (fileName) {
+    return `${req.protocol}://${req.get(
+      "host"
+    )}/uploads/${directory}/${fileName}`;
+  }
+
+  return undefined;
+};

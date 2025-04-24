@@ -7,8 +7,6 @@ import { validateAccess } from "../../../middleware/validateAccess.middleware";
 const mountAdminRouter = (router: Router) => {
   router.post("/adminLogin", controllers.adminController.adminLogin);
 
-  
-
   router.post(
     "/createAdmin",
     validateJWTToken,

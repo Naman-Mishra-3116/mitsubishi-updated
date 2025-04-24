@@ -2,6 +2,7 @@ import { asyncWrapper } from "../../utils/asyncWrapper";
 import { changeManagerStatusById } from "./query/changeManagerStatus.controller";
 import { completeCollegeProfile } from "./query/completeCollegeProfile.controller";
 import { editManagerById } from "./query/editMangerById.controller";
+import { getAllATCTraining } from "./query/getAllATCTraining.controller";
 import { getAllManagers } from "./query/getAllManagers.controller";
 import { getCollegeProfile } from "./query/getCollegeProfile.controller";
 import { getManagerByATCId } from "./query/getManagerByATCId.controller";
@@ -17,4 +18,5 @@ export const managerControllers = {
   getManagerLoginData: asyncWrapper(getManagerLoginData),
   getCollegeProfile: asyncWrapper(getCollegeProfile),
   completeCollegeProfile: asyncWrapper(completeCollegeProfile),
+  getAllATCTraining: asyncWrapper(getAllATCTraining),
 };

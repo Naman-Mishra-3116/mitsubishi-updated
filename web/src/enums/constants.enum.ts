@@ -1,3 +1,4 @@
 export enum CONSTANT {
   PAGE_LIMIT = 6,
+  TRAINING_PAGE_LIMIT = 10,
 }

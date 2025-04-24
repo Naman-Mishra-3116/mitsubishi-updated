@@ -48,4 +48,10 @@ export const mountManagerRouter = (router: Router) => {
     validateJWTToken,
     controllers.managerControllers.getCollegeProfile
   );
+
+  router.get(
+    "/allTraining",
+    // validateJWTToken,
+    controllers.managerControllers.getAllATCTraining
+  );
 };

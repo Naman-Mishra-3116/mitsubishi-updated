@@ -3,4 +3,5 @@ export enum QUERY_KEY {
   GET_ALL_CENTERS = "get_all_centers",
   GET_MANAGER_LOGIN_DATA = "get_manager_login_data",
   COLLEGE_PROFILE_DATA = "get_college_profile_data",
+  TRAINING_DATA = "get_all_training_data",
 }

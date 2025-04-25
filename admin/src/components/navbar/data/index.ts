@@ -8,6 +8,7 @@ import {
   IconProps,
   IconSchool,
   IconServerSpark,
+  IconTrack,
   IconUserCircle,
   IconUsersPlus,
 } from "@tabler/icons-react";
@@ -49,6 +50,11 @@ export const home: NavItem[] = [
     link: ROUTES.MANAGERS,
     title: "All Managers",
     tablerIcon: IconUserCircle,
+  },
+  {
+    link: ROUTES.ALL_TRAINING,
+    title: "All Trainings",
+    tablerIcon: IconTrack,
   },
 ];
 

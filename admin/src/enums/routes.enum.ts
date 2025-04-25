@@ -6,4 +6,6 @@ export enum ROUTES {
   PROFILE = "/profile",
   MANAGERS = "/managers",
   VIEW_ALL_ADMIN = "/view-admins",
+  ALL_TRAINING = "/all-trainings",
+  SPECIFIC_TRAINING = "/atcId/trainingId",
 }

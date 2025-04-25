@@ -19,4 +19,7 @@ export enum API_URL {
   GET_ALL_MANAGER = "/manager/",
   CHANGE_MANAGER_STATUS = "/manager/status/:id",
   GET_DASHBOARD_DATA = "/admin/dashboard",
+
+  APPROVE_TRAINING = "/admin/approve/:id",
+  GET_ALL_TRAINING = "/admin/viewAll",
 }

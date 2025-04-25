@@ -1,21 +1,19 @@
 "use client";
-import { AllManagers } from "@/columns/AllManagers.column";
-import { PAGINATION_CONSTANT } from "@/constants/pagination";
-import { useGetAllManagers } from "@/hooks/query/useGetAllManagers.query";
+import { AllTrainingColumn } from "@/columns/AllTrainings.column";
+import { useViewAllTraining } from "@/hooks/query/useViewAllTraining.query";
 import MPaginatedTable from "@/ui/MPaginatedTable/MPaginatedTable";
 import React, { memo, useState } from "react";
 
-
-const ViewAllManagers: React.FC = () => {
+const ViewAllTrainings: React.FC = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useGetAllManagers({
+  const { data, isLoading } = useViewAllTraining({
+    limit: 10,
     page,
-    limit: PAGINATION_CONSTANT.PAGE_LIMIT,
   });
 
   return (
     <MPaginatedTable
-      columns={AllManagers}
+      columns={AllTrainingColumn}
       data={data?.data?.data ?? []}
       isLoading={isLoading}
       paginationProps={{
@@ -24,10 +22,10 @@ const ViewAllManagers: React.FC = () => {
         setPage(e) {
           setPage(e);
         },
-        pageLimit: PAGINATION_CONSTANT.PAGE_LIMIT,
+        pageLimit: 10,
       }}
     />
   );
 };
 
-export default memo(ViewAllManagers);
+export default memo(ViewAllTrainings);

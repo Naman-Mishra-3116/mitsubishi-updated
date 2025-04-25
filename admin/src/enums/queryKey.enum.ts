@@ -8,4 +8,5 @@ export enum QUERY_KEY {
   GET_ATC_ID = "atc_id",
   GET_MANAGER_BY_ATC_ID = "manager_by_atc_id",
   GET_DASHBOARD_DATA = "dashboard_data",
+  GET_ALL_TRAINING = "get_all_trainings",
 }

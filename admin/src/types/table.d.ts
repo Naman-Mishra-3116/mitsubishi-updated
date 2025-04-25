@@ -9,7 +9,7 @@ export interface TPaging {
   page: number;
   setPage: (e: number) => void;
   totalDocuments: number;
-  pageLimit?: number;
+  pageLimit: number;
 }
 export interface TLimit {
   value?: string;

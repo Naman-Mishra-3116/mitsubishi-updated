@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ITableProps } from "@/types/table";
 import {
+  Box,
+  Center,
+  Loader,
   ScrollArea,
   Table,
-  Loader,
-  Center,
+  TableTbody,
+  TableTd,
+  TableTh,
   TableThead,
   TableTr,
-  TableTd,
-  TableTbody,
-  TableTh,
-  Box,
 } from "@mantine/core";
 import React, { memo } from "react";
-import { ITableProps } from "@/types/table";
+import MTypography from "../MTypography/MTypography";
 import MPagination from "./MPagination";
 import classes from "./index.module.scss";
-import MTypography from "../MTypography/MTypography";
-import { PAGINATION_CONSTANT } from "@/constants/pagination";
 
 const MPaginatedTable: React.FC<ITableProps<any>> = (props) => {
   const { columns, data, paginationProps, isLoading } = props;
@@ -107,7 +106,7 @@ const MPaginatedTable: React.FC<ITableProps<any>> = (props) => {
         )}
       </ScrollArea>
       {paginationProps?.page &&
-        paginationProps?.totalDocuments > PAGINATION_CONSTANT.PAGE_LIMIT && (
+        paginationProps?.totalDocuments > paginationProps.pageLimit && (
           <MPagination {...paginationProps} />
         )}
     </Box>

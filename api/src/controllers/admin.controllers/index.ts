@@ -1,6 +1,7 @@
 import { asyncWrapper } from "../../utils/asyncWrapper";
 import adminLogin from "./query/adminLogin.controller";
 import { adminProfilePicUpload } from "./query/adminProfilePicUpload.controller";
+import { approveTrainingById } from "./query/approveTraining.controller";
 import { changeAdminStatusByID } from "./query/changeAdminStatus.controller";
 import completeProfileForm from "./query/completeProfile.controller";
 import createAdminUser from "./query/createAdmin.controller";
@@ -9,6 +10,7 @@ import getAdminProfileFormData from "./query/getAdminProfileFormData.controller"
 import getAdminProfileViewData from "./query/getAdminProfileViewData.controller";
 import { getAllAdmins } from "./query/getAllAdmins.controller";
 import { getAllDashBoardData } from "./query/getDashBoardData.controller";
+import { viewAllTraining } from "./query/viewAllTraining.controller";
 
 export const adminController = {
   creatAdmin: asyncWrapper(createAdminUser),
@@ -21,4 +23,6 @@ export const adminController = {
   getAllAdmin: asyncWrapper(getAllAdmins),
   changeAdminStatusById: asyncWrapper(changeAdminStatusByID),
   dashboardStats: asyncWrapper(getAllDashBoardData),
+  approveTrainingById: asyncWrapper(approveTrainingById),
+  viewAllTraining: asyncWrapper(viewAllTraining),
 };

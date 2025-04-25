@@ -63,6 +63,18 @@ const mountAdminRouter = (router: Router) => {
     validateJWTToken,
     controllers.adminController.dashboardStats
   );
+
+  router.get(
+    "/viewAll",
+    validateJWTToken,
+    controllers.adminController.viewAllTraining
+  );
+
+  router.post(
+    "/approve/:id",
+    validateJWTToken,
+    controllers.adminController.approveTrainingById
+  );
 };
 
 export default mountAdminRouter;

@@ -12,4 +12,10 @@ export const mountGeneralRoutes = (router: Router) => {
     validateJWTToken,
     controllers.generalControllers.logoutUser
   );
+
+  router.get(
+    "/:trainingId",
+    validateJWTToken,
+    controllers.generalControllers.getTrainingDataByID
+  );
 };

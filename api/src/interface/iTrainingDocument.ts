@@ -1,4 +1,5 @@
 import { Document, Types } from "mongoose";
+import { IATCDocument } from "./iATCDocument";
 
 export interface ITrainingDocument extends Document {
   isApproved: boolean;
@@ -6,7 +7,7 @@ export interface ITrainingDocument extends Document {
   endDate: Date;
   totalStudents: number;
   title: string;
-  atcId: Types.ObjectId;
+  atcId: Types.ObjectId | IATCDocument;
   description: string;
   trainingImages: string[];
   attendence: string;

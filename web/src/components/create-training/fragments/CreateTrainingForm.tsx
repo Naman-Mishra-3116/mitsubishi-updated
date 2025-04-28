@@ -1,25 +1,25 @@
 "use client";
+import { useCreateTrainingMutation } from "@/hooks/mutation/useCreateTrainingMutation.mutation";
 import MButton from "@/ui/MButton/MButton";
 import openImageCropperModal from "@/ui/MImageCropper/fragments/openCropperModal";
 import MInput from "@/ui/MInput/MInput";
 import MTypography from "@/ui/MTypography/MTypography";
+import {
+  createTrainingInitails,
+  trainingFormSchema,
+  validateExcelColumns,
+} from "@/validation/createTrainingValidator";
 import { ActionIcon, Box, Group, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import "@mantine/dropzone/styles.css";
 import { useForm, yupResolver } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
 import { IconCrop, IconPhoto, IconUpload, IconX } from "@tabler/icons-react";
 import Image from "next/image";
 import React, { memo } from "react";
 import classes from "../styles/index.module.scss";
-import {
-  createTrainingInitails,
-  trainingFormSchema,
-  validateExcelColumns,
-} from "@/validation/createTrainingValidator";
-import { notifications } from "@mantine/notifications";
-import { useCreateTrainingMutation } from "@/hooks/mutation/useCreateTrainingMutation.mutation";
 
 type FormValues = {
   title: string;

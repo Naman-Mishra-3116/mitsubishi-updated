@@ -28,6 +28,11 @@ const trainingSchema = new mongoose.Schema<ITrainingDocument>(
       required: true,
     },
 
+    description: {
+      type: String,
+      required: true,
+    },
+    
     atcId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "ATC",
@@ -51,5 +56,3 @@ export const Training: Model<ITrainingDocument> = mongoose.model(
   "Training",
   trainingSchema
 );
-
-

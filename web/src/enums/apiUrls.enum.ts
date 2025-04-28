@@ -8,4 +8,6 @@ export enum API_URL {
   COMPLETE_COLLEGE_PROFILE = "/manager/completeProfile",
   CREATE_TRAINING = "/atc/createTraining",
   GET_ALL_TRAINING = "/manager/allTraining",
+  GET_SPECIFIC_TRAINING = "/general/:trainingId",
+  
 }

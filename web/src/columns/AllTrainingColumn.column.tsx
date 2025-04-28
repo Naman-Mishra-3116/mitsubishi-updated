@@ -32,7 +32,7 @@ export const AllTrainingColumns: TTableColumns<Training>[] = [
   {
     key: "endDate",
     label: "End Date",
-    minWidth:0,
+    minWidth: 0,
     renderCell(item) {
       return <Text>{dayjs(item.endDate).format("DD MMM YYYY")}</Text>;
     },
@@ -45,13 +45,17 @@ export const AllTrainingColumns: TTableColumns<Training>[] = [
     key: "approved",
     label: "Status",
     renderCell(item) {
-      return item.approved ? (
-        <Flex>
-          <Badge color="green">Approved</Badge>
-          <MActionIcon href="/" variant="redirect" toolTip="view details" />
+      return (
+        <Flex gap={"sm"} align={"center"}>
+          <Badge color={item.approved ? "green" : "red"}>
+            {item.approved ? "Approved" : "Pending"}
+          </Badge>
+          <MActionIcon
+            href={`/atc/${item._id}`}
+            variant="redirect"
+            toolTip="view details"
+          />
         </Flex>
-      ) : (
-        <Badge color="red">Pending</Badge>
       );
     },
   },

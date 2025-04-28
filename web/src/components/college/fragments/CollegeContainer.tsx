@@ -111,6 +111,7 @@ const CollegeContainer: React.FC = () => {
           error={form.errors.collegeLogo as string}
           showDeleteButton={mode === "update"}
           initialPreview={preview}
+          key={preview}
         />
 
         <MInput

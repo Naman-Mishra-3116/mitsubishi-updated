@@ -2,7 +2,6 @@ import { ROUTES } from "@/enums/routes.enum";
 import { TTableColumns } from "@/types/table";
 import MActionIcon from "@/ui/MActionIcon/MActionIcon";
 import { Badge, Flex, Text } from "@mantine/core";
-import { getRandomValues } from "crypto";
 import dayjs from "dayjs";
 
 type TrainingData = {

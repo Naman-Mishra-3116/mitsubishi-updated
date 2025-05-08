@@ -75,6 +75,12 @@ const mountAdminRouter = (router: Router) => {
     validateJWTToken,
     controllers.adminController.approveTrainingById
   );
+
+  router.get(
+    "/training/:id",
+    validateJWTToken,
+    controllers.adminController.getATCSpecificTraining
+  );
 };
 
 export default mountAdminRouter;

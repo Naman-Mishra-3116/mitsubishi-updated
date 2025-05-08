@@ -9,6 +9,7 @@ import getAdminLoginData from "./query/getAdminLoginData.controller";
 import getAdminProfileFormData from "./query/getAdminProfileFormData.controller";
 import getAdminProfileViewData from "./query/getAdminProfileViewData.controller";
 import { getAllAdmins } from "./query/getAllAdmins.controller";
+import { getATCSpecificTraining } from "./query/getATCSpecificTraining.controller";
 import { getAllDashBoardData } from "./query/getDashBoardData.controller";
 import { viewAllTraining } from "./query/viewAllTraining.controller";
 
@@ -25,4 +26,5 @@ export const adminController = {
   dashboardStats: asyncWrapper(getAllDashBoardData),
   approveTrainingById: asyncWrapper(approveTrainingById),
   viewAllTraining: asyncWrapper(viewAllTraining),
+  getATCSpecificTraining: asyncWrapper(getATCSpecificTraining),
 };

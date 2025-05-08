@@ -10,4 +10,5 @@ export enum QUERY_KEY {
   GET_DASHBOARD_DATA = "dashboard_data",
   GET_ALL_TRAINING = "get_all_trainings",
   SPECIFIC_TRAINING = "get_specific_training",
+  GET_ATC_SPECIFIC_TRAINING = "get_atc_training",
 }

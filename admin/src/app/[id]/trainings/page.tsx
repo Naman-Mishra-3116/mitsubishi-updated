@@ -1,15 +1,8 @@
-import React,{ memo } from 'react';
+import ViewAllATCSpecificTraining from "@/components/views/fragments/ViewAllATCSpecificTraining";
+import React, { memo } from "react";
 
-interface IProps {
-  
-}
-
-const page: React.FC<IProps> = () => {
-  return (
-    <div>
-      trainings
-    </div>
-  );
+const page: React.FC = () => {
+  return <ViewAllATCSpecificTraining />;
 };
 
 export default memo(page);

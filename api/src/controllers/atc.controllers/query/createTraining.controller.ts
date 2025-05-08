@@ -3,6 +3,7 @@ import { getFilePaths } from "../../../utils/getFilePaths";
 import { Training } from "../../../models/training.model";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import { jsonResponse } from "../../../utils/jsonResponse";
+import { ATC } from "../../../models/atc.model";
 
 export const createTraining = async (
   req: Request,
@@ -57,6 +58,14 @@ export const createTraining = async (
     attendence: attendencePath,
     isApproved: false,
   });
+
+  await ATC.findByIdAndUpdate(
+    atcId,
+    {
+      $push: { trainings: newTraining._id },
+    },
+    { new: true }
+  );
 
   return jsonResponse(res, {
     status: "success",

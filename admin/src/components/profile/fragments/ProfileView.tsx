@@ -55,14 +55,23 @@ const ProfileView: React.FC = () => {
   return (
     <div className={classes.container}>
       <Box className={classes.profileContainer}>
-        <MImage
-          url={data?.data?.profileImage || ("profileDemo" as TImages)}
-          name={!data?.data?.profileImage ? "profileDemo" : undefined}
-          alt="Profile Pic of admin"
-          className={classes.image}
-          width={200}
-          height={200}
-        />
+        {data?.data?.profileImage ? (
+          <MImage
+            url={data?.data?.profileImage}
+            alt="Profile Pic of admin"
+            className={classes.image}
+            width={200}
+            height={200}
+          />
+        ) : (
+          <MImage
+            name={"profileDemo"}
+            alt="Profile Pic of admin"
+            className={classes.image}
+            width={200}
+            height={200}
+          />
+        )}
       </Box>
       <Box className={classes.aboutMeSection}>
         <MTypography

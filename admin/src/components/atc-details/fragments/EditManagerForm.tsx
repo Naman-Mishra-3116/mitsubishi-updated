@@ -1,7 +1,9 @@
 "use client";
+import { PERMISSION } from "@/enums/permission.enum";
 import { QUERY_KEY } from "@/enums/queryKey.enum";
 import { useEditMangerByIdMutation } from "@/hooks/mutation/useEditManagerById.mutation";
 import { useGetManagerByAtcID } from "@/hooks/query/useGetManagerByATCId.query";
+import { useAppSelector } from "@/store/hooks";
 import MButton from "@/ui/MButton/MButton";
 import MInput from "@/ui/MInput/MInput";
 import MTypography from "@/ui/MTypography/MTypography";
@@ -19,6 +21,7 @@ import classes from "../styles/createATCForm.module.scss";
 
 const EditManagerForm: React.FC = () => {
   const [mode, setMode] = useState<"edit" | "update">("edit");
+  const permission = useAppSelector((state) => state.auth.user.permission);
   const { id } = useParams();
   const { data } = useGetManagerByAtcID(id as string);
   const [managerId, setManagerId] = useState("");
@@ -68,13 +71,15 @@ const EditManagerForm: React.FC = () => {
         <MTypography
           variant="heading"
           color="white"
-          text="Edit Manager"
+          text={`${permission === PERMISSION.WRITE ? "Edit" : "View"} Manager`}
           className={classes.heading}
         />
         <MTypography
           className={classes.subHeading}
           variant="subTitle"
-          text="Edit Manager Details"
+          text={`${
+            permission === PERMISSION.WRITE ? "Edit" : "View"
+          } Manager Details`}
           color="white"
         />
       </Box>
@@ -135,7 +140,7 @@ const EditManagerForm: React.FC = () => {
             <MButton type="submit" text="Update" radius="md" variant="filled" />
           </>
         )}
-        {mode === "edit" && (
+        {mode === "edit" && permission === PERMISSION.WRITE && (
           <MButton
             type="button"
             text="Edit"

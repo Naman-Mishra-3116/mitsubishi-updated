@@ -18,6 +18,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React, { memo, useEffect, useState } from "react";
 import classes from "../styles/createATCForm.module.scss";
+import { useAppSelector } from "@/store/hooks";
+import { PERMISSION } from "@/enums/permission.enum";
 
 const EditATCForm: React.FC = () => {
   const { id } = useParams();
@@ -26,6 +28,7 @@ const EditATCForm: React.FC = () => {
   const { data } = useGetATCById(id as string);
   const [preview, setPreview] = useState("");
   const queryClient = useQueryClient();
+  const permission = useAppSelector((state) => state.auth.user.permission);
   const form = useForm({
     initialValues: editATCInitials,
     validate: yupResolver(validateEditATC),
@@ -93,13 +96,15 @@ const EditATCForm: React.FC = () => {
         <MTypography
           variant="heading"
           color="white"
-          text="Edit ATC"
+          text={`${permission === PERMISSION.WRITE ? "Edit" : "View"} ATC`}
           className={classes.heading}
         />
         <MTypography
           className={classes.subHeading}
           variant="subTitle"
-          text="Edit ATC Details"
+          text={`${
+            permission === PERMISSION.WRITE ? "Edit" : "View"
+          } ATC Details`}
           color="white"
         />
       </Box>
@@ -181,7 +186,7 @@ const EditATCForm: React.FC = () => {
         {mode === "update" && (
           <MButton type="submit" text="Update" radius="md" variant="filled" />
         )}
-        {mode === "edit" && (
+        {mode === "edit" && permission === PERMISSION.WRITE && (
           <MButton
             type="button"
             text="Edit"

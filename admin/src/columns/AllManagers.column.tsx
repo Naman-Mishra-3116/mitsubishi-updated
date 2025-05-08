@@ -31,16 +31,4 @@ export const AllManagers: TTableColumns<ManagerDetails>[] = [
     label: "Belongs To",
     minWidth: 120,
   },
-  {
-    key: "active",
-    label: "Status",
-    renderCell: (value) => {
-      return (
-        <ChangeManagerStatus
-          id={value._id}
-          currentStatus={value.active ? "active" : "inactive"}
-        />
-      );
-    },
-  },
 ];

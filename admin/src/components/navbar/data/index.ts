@@ -14,12 +14,40 @@ import {
 } from "@tabler/icons-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
-interface NavItem {
+export interface NavItem {
   title: string;
   link: string;
   tablerIcon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>;
 }
-export const home: NavItem[] = [
+
+export const ReadHome: NavItem[] = [
+  {
+    link: ROUTES.DASHBOARD,
+    title: "Dashboard",
+    tablerIcon: IconLayoutDashboardFilled,
+  },
+  {
+    link: ROUTES.VIEW_ALL_ADMIN,
+    title: "View Admins",
+    tablerIcon: IconServerSpark,
+  },
+  {
+    link: ROUTES.ATC,
+    title: "View ATC's",
+    tablerIcon: IconSchool,
+  },
+  {
+    link: ROUTES.MANAGERS,
+    title: "View Managers",
+    tablerIcon: IconUserCircle,
+  },
+  {
+    link: ROUTES.ALL_TRAINING,
+    title: "View Trainings",
+    tablerIcon: IconTrack,
+  },
+];
+export const WriteHome: NavItem[] = [
   {
     link: ROUTES.DASHBOARD,
     title: "Dashboard",
@@ -33,33 +61,43 @@ export const home: NavItem[] = [
   },
   {
     link: ROUTES.VIEW_ALL_ADMIN,
-    title: "Admins",
+    title: "View Admins",
     tablerIcon: IconServerSpark,
   },
   {
     link: ROUTES.ATC,
-    title: "Authorized TC's",
+    title: "View ATC's",
     tablerIcon: IconSchool,
   },
   {
     link: ROUTES.ADD_ATC,
-    title: "Add ATC",
+    title: "Create ATC",
     tablerIcon: IconServerSpark,
   },
   {
     link: ROUTES.MANAGERS,
-    title: "All Managers",
+    title: "View Managers",
     tablerIcon: IconUserCircle,
   },
   {
     link: ROUTES.ALL_TRAINING,
-    title: "All Trainings",
+    title: "View Trainings",
     tablerIcon: IconTrack,
   },
 ];
 
-export const details: NavItem[] = [
+export const WriteDetails: NavItem[] = [
   { link: "/:id/edit", title: "Edit ATC", tablerIcon: IconPencilCog },
-  { link: "/:id/trainings", title: "All Trainings", tablerIcon: IconBook },
+  { link: "/:id/trainings", title: "View Trainings", tablerIcon: IconBook },
   { link: "/:id/manager", title: "Edit Manager", tablerIcon: IconBrowserCheck },
+];
+
+export const ReadDetails: NavItem[] = [
+  { link: "/:id/edit", title: "ATC Details", tablerIcon: IconSchool },
+  { link: "/:id/trainings", title: "View Trainings", tablerIcon: IconBook },
+  {
+    link: "/:id/manager",
+    title: "Manager Details",
+    tablerIcon: IconBrowserCheck,
+  },
 ];

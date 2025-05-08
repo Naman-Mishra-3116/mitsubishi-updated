@@ -1,6 +1,8 @@
 "use client";
+import { PERMISSION } from "@/enums/permission.enum";
 import { QUERY_KEY } from "@/enums/queryKey.enum";
 import { useUpdateATCSTatusMutation } from "@/hooks/mutation/useChangeATCStatus.mutation";
+import { useAppSelector } from "@/store/hooks";
 import MActionIcon from "@/ui/MActionIcon/MActionIcon";
 import { confirmationAlert } from "@/ui/MAlerts/confirmationAlert";
 import { Group } from "@mantine/core";
@@ -16,6 +18,7 @@ interface IProps {
 const ChangeATCStatus: React.FC<IProps> = ({ currentState, id }) => {
   const { mutateAsync } = useUpdateATCSTatusMutation();
   const queryClient = useQueryClient();
+  const permission = useAppSelector((state) => state.auth.user.permission);
 
   const changeATCStatus = async () => {
     const confirmation = await confirmationAlert({
@@ -52,11 +55,14 @@ const ChangeATCStatus: React.FC<IProps> = ({ currentState, id }) => {
 
   return (
     <Group gap={"sm"}>
-      <MActionIcon
-        handleClick={changeATCStatus}
-        variant={currentState}
-        toolTip={currentState === "active" ? "Block ATC" : "Unblock ATC"}
-      />
+      {permission === PERMISSION.WRITE && (
+        <MActionIcon
+          handleClick={changeATCStatus}
+          variant={currentState}
+          toolTip={currentState === "active" ? "Block ATC" : "Unblock ATC"}
+        />
+      )}
+
       <MActionIcon
         variant="redirect"
         href={`/${id}/edit`}

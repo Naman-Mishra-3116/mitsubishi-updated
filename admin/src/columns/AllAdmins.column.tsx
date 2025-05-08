@@ -57,17 +57,4 @@ export const AdminColumn: TTableColumns<AdminUser>[] = [
     label: "Phone Number",
     minWidth: 150,
   },
-  {
-    key: "isBlocked",
-    label: "Status",
-    renderCell: (data) => {
-      return (
-        <ChangeAdminStatus
-          currentStatus={data.isBlocked ? "inactive" : "active"}
-          id={data._id}
-        />
-      );
-    },
-    minWidth: 100,
-  },
 ];

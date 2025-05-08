@@ -1,20 +1,22 @@
 "use client";
+import { PERMISSION } from "@/enums/permission.enum";
+import { useAppSelector } from "@/store/hooks";
 import MImage from "@/ui/MImage/MImage";
-import MTypography from "@/ui/MTypography/MTypography";
 import { Box } from "@mantine/core";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { memo } from "react";
-import { home, details } from "../data";
+import { ReadDetails, ReadHome, WriteDetails, WriteHome } from "../data";
 import styles from "../styles/navbar.module.scss";
+import PermissionLink from "./PermissionLink";
 
 interface IProps {
   layoutType: "home" | "details";
 }
 
 const Navbar: React.FC<IProps> = ({ layoutType }) => {
-  const pathname = usePathname();
   const { id } = useParams();
+  const permission = useAppSelector((state) => state.auth.user.permission);
 
   return (
     <Box className={styles.root}>
@@ -25,47 +27,19 @@ const Navbar: React.FC<IProps> = ({ layoutType }) => {
       </Link>
 
       <Box className={styles.tileContainer}>
-        {layoutType === "home"
-          ? home.map((item) => (
-              <Link
-                href={item.link}
-                key={item.link}
-                className={
-                  item.link === pathname ? styles.activeTile : styles.tile
-                }
-              >
-                <item.tablerIcon className={styles.icon} size={20} />
-                <MTypography
-                  text={item.title}
-                  fontWeight={500}
-                  fontSize="16px"
-                  variant="normal"
-                  className={styles.tileText}
-                />
-              </Link>
-            ))
-          : details.map((item) => {
-              return (
-                <Link
-                  href={item.link.replace(":id", id as string)}
-                  key={item.link}
-                  className={
-                    item.link.replace(":id", id as string) === pathname
-                      ? styles.activeTile
-                      : styles.tile
-                  }
-                >
-                  <item.tablerIcon className={styles.icon} size={20} />
-                  <MTypography
-                    text={item.title}
-                    fontWeight={500}
-                    fontSize="16px"
-                    variant="normal"
-                    className={styles.tileText}
-                  />
-                </Link>
-              );
-            })}
+        {layoutType === "home" ? (
+          <PermissionLink
+            id={id as string}
+            layoutType="home"
+            data={permission === PERMISSION.WRITE ? WriteHome : ReadHome}
+          />
+        ) : (
+          <PermissionLink
+            id={id as string}
+            layoutType="details"
+            data={permission === PERMISSION.WRITE ? WriteDetails : ReadDetails}
+          />
+        )}
       </Box>
     </Box>
   );

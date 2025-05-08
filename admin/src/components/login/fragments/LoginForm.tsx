@@ -14,7 +14,7 @@ import { useForm, yupResolver } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React, { FormEvent, memo } from "react";
+import React, { FormEvent, memo, useEffect } from "react";
 import classes from "../styles/loginForm.module.scss";
 
 interface IProps {
@@ -32,9 +32,11 @@ const LoginForm: React.FC<IProps> = () => {
   const router = useRouter();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
-  if (isAuthenticated) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated, router]);
 
   const handleLoginFormSubmit = async (
     values: typeof form.values,

@@ -1,54 +1,31 @@
 "use client";
 import Header from "@/components/header/fragments/Header";
 import Navbar from "@/components/navbar/fragments/Navbar";
-import { useGetAdminProfileData } from "@/hooks/query/useAdminProfileData.query";
-import { useAppDispatch } from "@/store/hooks";
-import { setUserData } from "@/store/reducers/authSlice";
-import MLoader from "@/ui/MLoader/MLoader";
+import { useAppSelector } from "@/store/hooks";
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { useRouter } from "next/navigation";
-import { memo, ReactNode, useEffect } from "react";
+import { memo, ReactNode, useEffect, useState } from "react";
 interface IProps {
   children: ReactNode;
   layoutType: "home" | "details";
 }
 
 const Layout: React.FC<IProps> = ({ children, layoutType }) => {
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const router = useRouter();
-  const { data, isPending, isError } = useGetAdminProfileData();
-  console.log(data, "data is this ");
-  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (data?.status === "success") {
-      dispatch(
-        setUserData({
-          isAuthenticated: true,
-          user: {
-            id: data.data.id,
-            email: data.data.email,
-            fullName: data.data.fullName,
-            permission: data.data.permission,
-            role: data.data.role,
-          },
-        })
-      );
-    } else if (isError) {
-      router.replace("/login");
+    if (isAuthenticated === false && loading === false) {
+      router.push("/login");
+    } else {
+      setLoading(false);
     }
-  }, [data, isError, dispatch, router]);
-
-  if (isPending) {
-    return <MLoader type="dots" size="lg" />;
-  }
-
-  if (isError) {
-    return null;
-  }
+  }, [isAuthenticated, router, loading]);
 
   return (
     <AppShell

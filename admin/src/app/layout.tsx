@@ -6,6 +6,7 @@ import { Notifications } from "@mantine/notifications";
 import QueryProvider from "@/layouts/QueryProvider";
 import ReduxStoreProvider from "@/layouts/ReduxStoreProvider";
 import { Roboto } from "next/font/google";
+import ProfileFetcher from "@/layouts/ProfileFetcher";
 
 export const metadata = {
   title: "Admin",
@@ -29,7 +30,9 @@ export default function RootLayout({
         <QueryProvider>
           <MantineProvider>
             <Notifications w={400} position={"top-left"} zIndex={20000} />
-            <ReduxStoreProvider>{children}</ReduxStoreProvider>
+            <ReduxStoreProvider>
+              <ProfileFetcher>{children}</ProfileFetcher>
+            </ReduxStoreProvider>
           </MantineProvider>
         </QueryProvider>
       </body>

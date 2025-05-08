@@ -8,10 +8,44 @@ import React, { memo } from "react";
 import classes from "../styles/viewSpecific.module.scss";
 import StudentTable from "./StudentTable";
 import { useGetSpecificTraining } from "@/hooks/query/useGetSpecificTraining.query";
+import { useApproveTraining } from "@/hooks/mutation/useApproveTraining.mutation";
+import MButton from "@/ui/MButton/MButton";
+import { useAppSelector } from "@/store/hooks";
+import { confirmationAlert } from "@/ui/MAlerts/confirmationAlert";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEY } from "@/enums/queryKey.enum";
+import { notifications } from "@mantine/notifications";
 
 const ViewSpecificTraining: React.FC = () => {
   const { trainingId } = useParams();
   const { data } = useGetSpecificTraining(trainingId as string);
+  const { mutateAsync } = useApproveTraining();
+  const { permission } = useAppSelector((state) => state.auth.user);
+  const queryClient = useQueryClient();
+  const handleApprove = async () => {
+    const confirm = await confirmationAlert({
+      title: "Approve Training",
+      msg: "Are you sure you want to approve this training?",
+    });
+    if (!confirm) {
+      return;
+    }
+
+    const resp = await mutateAsync(trainingId as string);
+    if (resp.status === "success") {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_ALL_TRAINING] });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.SPECIFIC_TRAINING],
+      });
+    }
+
+    notifications.show({
+      message: resp.message,
+      title: resp.title,
+      color: resp.status === "success" ? "green" : "red",
+    });
+  };
+
   return (
     <Box className={classes.top}>
       <Box className={classes.tBox}>
@@ -56,19 +90,35 @@ const ViewSpecificTraining: React.FC = () => {
               <Text className={classes.value}>{data?.data?.totalStudents}</Text>
             </Group>
 
-            <Group justify="space-between">
-              <Text className={classes.label}>Status</Text>
-              <Box className={classes.value}>
-                <Badge
-                  color={data?.data?.isApproved ? "green" : "red"}
-                  variant="filled"
-                  size="lg"
-                  radius="md"
-                >
-                  {data?.data?.isApproved ? "Approved" : "Pending"}
-                </Badge>
-              </Box>
-            </Group>
+            {permission === "WRITE" && !data?.data?.isApproved ? (
+              <Group justify="space-between">
+                <Text className={classes.label}>Approve Training</Text>
+                <Box className={classes.value}>
+                  <MButton
+                    text="Approve"
+                    variant="filled"
+                    size="sm"
+                    p="lg"
+                    radius="md"
+                    handleClick={handleApprove}
+                  />
+                </Box>
+              </Group>
+            ) : (
+              <Group justify="space-between">
+                <Text className={classes.label}>Status</Text>
+                <Box className={classes.value}>
+                  <Badge
+                    color={data?.data?.isApproved ? "green" : "red"}
+                    variant="filled"
+                    size="lg"
+                    radius="md"
+                  >
+                    {data?.data?.isApproved ? "Approved" : "Pending"}
+                  </Badge>
+                </Box>
+              </Group>
+            )}
           </Stack>
         </Box>
       </Box>

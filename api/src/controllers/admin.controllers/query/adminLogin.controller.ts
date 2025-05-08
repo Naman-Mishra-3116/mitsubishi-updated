@@ -45,8 +45,6 @@ const adminLogin = async (req: Request, res: Response, next: NextFunction) => {
     );
   }
 
-  
-
   const token = JwtConfig.assignToken({
     id: admin._id as string,
     role: admin.role,

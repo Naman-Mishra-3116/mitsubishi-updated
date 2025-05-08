@@ -20,6 +20,7 @@ const Layout: React.FC<IProps> = ({ children, layoutType }) => {
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const router = useRouter();
   const { data, isPending, isError } = useGetAdminProfileData();
+  console.log(data, "data is this ");
   const dispatch = useAppDispatch();
 
   useEffect(() => {

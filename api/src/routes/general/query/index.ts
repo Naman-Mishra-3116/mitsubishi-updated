@@ -18,4 +18,6 @@ export const mountGeneralRoutes = (router: Router) => {
     validateJWTToken,
     controllers.generalControllers.getTrainingDataByID
   );
+
+  router.get("/calendar", controllers.generalControllers.getCalendar);
 };

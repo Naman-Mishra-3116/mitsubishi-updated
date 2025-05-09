@@ -2,7 +2,7 @@ import { Request } from "express";
 
 export const getFilePaths = (
   req: Request,
-  directory: "images" | "trainings",
+  directory: "images" | "trainings" | "pdfs",
   fileName: string | undefined
 ) => {
   if (fileName) {

@@ -5,4 +5,5 @@ export enum QUERY_KEY {
   COLLEGE_PROFILE_DATA = "get_college_profile_data",
   TRAINING_DATA = "get_all_training_data",
   SPECIFIC_TRAINING = "specific_training",
+  GET_YEAR_CALENDAR = "yearly_calendar",
 }

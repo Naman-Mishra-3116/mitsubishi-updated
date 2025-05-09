@@ -55,7 +55,6 @@ const CreateTrainingForm: React.FC = () => {
       });
       return;
     }
-    console.log(values.attendence);
     const fd = new FormData();
     fd.append("attendence", values.attendence as File);
     fd.append("startDate", values.startDate);

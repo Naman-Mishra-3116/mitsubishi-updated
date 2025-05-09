@@ -3,6 +3,7 @@ import {
   Icon,
   IconBook,
   IconBrowserCheck,
+  IconCalendarTime,
   IconLayoutDashboardFilled,
   IconPencilCog,
   IconProps,
@@ -83,6 +84,11 @@ export const WriteHome: NavItem[] = [
     link: ROUTES.ALL_TRAINING,
     title: "View Trainings",
     tablerIcon: IconTrack,
+  },
+  {
+    link: ROUTES.INFO,
+    title: "Yearly Information",
+    tablerIcon: IconCalendarTime,
   },
 ];
 

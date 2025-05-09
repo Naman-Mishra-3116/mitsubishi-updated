@@ -81,6 +81,22 @@ const mountAdminRouter = (router: Router) => {
     validateJWTToken,
     controllers.adminController.getATCSpecificTraining
   );
+
+  router.post(
+    "/yearlyInfo",
+    validateJWTToken,
+    UploadFile.fields([
+      { name: "signature", maxCount: 1 },
+      { name: "calendar", maxCount: 1 },
+    ]),
+    controllers.adminController.createEditYearlyInformation
+  );
+
+  router.get(
+    "/info",
+    validateJWTToken,
+    controllers.adminController.getYearlyInfo
+  );
 };
 
 export default mountAdminRouter;

@@ -12,6 +12,8 @@ export const XLSX_STORAGE_PATH = path.join(
   "../../../uploads/trainings"
 );
 
+export const PDF_STORAGE_PATH = path.join(__dirname, "../../../uploads/pdfs");
+
 const fileFilter = (
   _req: Request,
   file: Express.Multer.File,
@@ -22,6 +24,7 @@ const fileFilter = (
       "image/jpeg",
       "image/png",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/pdf",
     ].includes(file.mimetype)
   ) {
     cb(null, true);
@@ -35,6 +38,8 @@ const storage = diskStorage({
   destination: (_req, file, cb) => {
     if (file.mimetype.startsWith("image/")) {
       cb(null, IMAGE_STORAGE_PATH);
+    } else if (file.mimetype === "application/pdf") {
+      cb(null, PDF_STORAGE_PATH);
     } else {
       cb(null, XLSX_STORAGE_PATH);
     }

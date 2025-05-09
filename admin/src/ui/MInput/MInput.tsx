@@ -111,6 +111,7 @@ const MInput: React.FC<IProps> = ({
           {...commonProps}
           {...(formHandler as FileInputProps)}
           accept={(rest as { accept: string }).accept}
+          placeholder={placeholder}
         />
       );
     case "select":

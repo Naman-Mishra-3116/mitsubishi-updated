@@ -9,5 +9,5 @@ export enum API_URL {
   CREATE_TRAINING = "/atc/createTraining",
   GET_ALL_TRAINING = "/manager/allTraining",
   GET_SPECIFIC_TRAINING = "/general/:trainingId",
-  
+  GET_YEARLY_CALENDAR = "/general/calendar",
 }

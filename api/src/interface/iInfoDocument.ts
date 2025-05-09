@@ -5,4 +5,5 @@ export interface IInfoDocument extends Document {
   nameOfMitsubishiHead: string;
   emailOfMitsubishiHead: string;
   signatureOfMitsubhiHead: string;
+  designationOfMitsubhiHead: string;
 }

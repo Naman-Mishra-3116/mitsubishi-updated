@@ -24,4 +24,7 @@ export enum API_URL {
   GET_ALL_TRAINING = "/admin/viewAll",
   GET_SPECIFIC_TRAINING = "/general/:trainingId",
   GET_ATC_SPECIFIC_TRAINING = "/admin/training/:id",
+
+  GET_YEARLY_INFO = "/admin/info",
+  ADD_YEARLY_INFO = "/admin/yearlyInfo",
 }

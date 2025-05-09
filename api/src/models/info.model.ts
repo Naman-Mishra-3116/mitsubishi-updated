@@ -10,6 +10,7 @@ const schema = new Schema<IInfoDocument>(
     nameOfMitsubishiHead: { type: String, required: true },
     emailOfMitsubishiHead: { type: String, required: true },
     signatureOfMitsubhiHead: { type: String, required: true },
+    designationOfMitsubhiHead: { type: String, required: true },
   },
   { timestamps: true }
 );

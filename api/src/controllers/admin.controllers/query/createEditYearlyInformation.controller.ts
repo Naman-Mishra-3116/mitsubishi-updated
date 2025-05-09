@@ -10,40 +10,34 @@ export const createEditYearlyInformation = async (
   next: NextFunction
 ) => {
   const files = req.files as IFiles;
-  let signaturePath: string = "";
-  let calendarPath: string = "";
-  if (files["calendar"] && files["calendar"].length > 0) {
-    calendarPath = getFilePaths(
+  let updatePayload: Record<string, any> = {};
+
+  if (files["calendar"]?.length > 0) {
+    updatePayload.calenderLink = getFilePaths(
       req,
       "pdfs",
       files["calendar"][0].filename
-    ) as string;
+    );
   }
 
-  if (files["signature"] && files["signature"].length > 0) {
-    signaturePath = getFilePaths(
+  if (files["signature"]?.length > 0) {
+    updatePayload.signatureOfMitsubhiHead = getFilePaths(
       req,
       "images",
       files["signature"][0].filename
-    ) as string;
+    );
   }
 
   const { name, email, designation } = req.body;
 
-  const info = await InfoModel.findOneAndUpdate(
-    {},
-    {
-      calenderLink: calendarPath,
-      nameOfMitsubishiHead: name,
-      emailOfMitsubishiHead: email,
-      signatureOfMitsubhiHead: signaturePath,
-      designationOfMitsubhiHead: designation,
-    },
-    {
-      new: true,
-      upsert: true,
-    }
-  );
+  if (name) updatePayload.nameOfMitsubishiHead = name;
+  if (email) updatePayload.emailOfMitsubishiHead = email;
+  if (designation) updatePayload.designationOfMitsubhiHead = designation;
+
+  const info = await InfoModel.findOneAndUpdate({}, updatePayload, {
+    new: true,
+    upsert: true,
+  });
 
   if (!info) {
     return next(

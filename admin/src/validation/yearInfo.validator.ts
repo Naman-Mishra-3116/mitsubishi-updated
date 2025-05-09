@@ -1,18 +1,22 @@
 import * as yup from "yup";
-
 export type YearlyInfo = {
   name: string;
   email: string;
   designation: string;
   calendar: File | null;
   signature: File | null;
+  calendarPreview?: string;
+  signaturePreview?: string;
 };
+
 export const yearlyInfoFormInital = {
   name: "",
   email: "",
   designation: "",
   calendar: null,
   signature: null,
+  calendarPreview: "",
+  signaturePreview: "",
 };
 
 export const yearFormValidator = yup.object().shape({
@@ -27,7 +31,8 @@ export const yearFormValidator = yup.object().shape({
     .email("invalid email")
     .required("email is required")
     .strict()
-    .lowercase("email should contain all lowercase letter"),
+    .lowercase("email should contain all lowercase letters"),
+
   designation: yup
     .string()
     .required("designation is required")
@@ -36,10 +41,17 @@ export const yearFormValidator = yup.object().shape({
 
   calendar: yup
     .mixed<File>()
-    .required("calendar file is required")
-    .test(
-      "is-file",
-      "calendar must be a valid file",
-      (value) => value instanceof File
-    ),
+    .nullable()
+    .test("is-calendar", "Calendar file is required", function (value) {
+      const { calendarPreview } = this.parent;
+      return value instanceof File || !!calendarPreview;
+    }),
+
+  signature: yup
+    .mixed<File>()
+    .nullable()
+    .test("is-signature", "Signature file is required", function (value) {
+      const { signaturePreview } = this.parent;
+      return value instanceof File || !!signaturePreview;
+    }),
 });

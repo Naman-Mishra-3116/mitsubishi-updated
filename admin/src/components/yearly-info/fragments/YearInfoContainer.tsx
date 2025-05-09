@@ -35,21 +35,21 @@ const YearInfoContainer: React.FC = () => {
 
   useEffect(() => {
     if (data && data.data) {
-      const { name, designation, signature, email } = data.data;
+      const { name, designation, signature, email, calendarLink } = data.data;
       setPreview(signature);
 
       form.setValues({
         name: name ?? "",
         designation: designation ?? "",
         email: email ?? "",
+        signaturePreview: signature ?? "",
+        calendarPreview: calendarLink ?? "",
       });
     }
   }, [data]);
 
-  console.log(form.errors);
-
   const handleSubmit = async (values: typeof form.values) => {
-    console.log(values, "values");
+    console.log(values.calendar);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -61,9 +61,6 @@ const YearInfoContainer: React.FC = () => {
     }
 
     const resp = await mutateAsync(formData);
-
-    console.log(resp);
-
     if (resp.status === "success") {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_YEARLY_INFO] });
       setMode("edit");
@@ -105,10 +102,12 @@ const YearInfoContainer: React.FC = () => {
           cropShape="rect"
           label="Signature of Head"
           handleFormSave={(file) => {
+            form.setFieldValue("signature", file);
             setFile(file);
           }}
           className={classes.file}
           aspectRatio={2 / 1}
+          error={form?.errors?.signature as string}
         />
 
         <MInput

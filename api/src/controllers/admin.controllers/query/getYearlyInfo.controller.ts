@@ -10,24 +10,13 @@ export const getYearlyInfo = async (
 ) => {
   const info = await InfoModel.findOne({});
   if (!info) {
-    return jsonResponse(res, {
-      status: "success",
-      statusCode: 200,
-      title: "Yearly Info fetched successfully",
-      data: {
-        name: "",
-        designation: "",
-        signature: "",
-        email: "",
-      },
-    });
-    // return next(
-    //   new ErrorResponse(
-    //     ErrorType.BAD_REQUEST,
-    //     "Could not update information",
-    //     "This request could not be processed at this time"
-    //   )
-    // );
+    return next(
+      new ErrorResponse(
+        ErrorType.BAD_REQUEST,
+        "Could not update information",
+        "This request could not be processed at this time"
+      )
+    );
   }
 
   return jsonResponse(res, {
@@ -39,6 +28,7 @@ export const getYearlyInfo = async (
       designation: info.designationOfMitsubhiHead,
       signature: info.signatureOfMitsubhiHead,
       email: info.emailOfMitsubishiHead,
+      calendarLink: info.calenderLink,
     },
   });
 };

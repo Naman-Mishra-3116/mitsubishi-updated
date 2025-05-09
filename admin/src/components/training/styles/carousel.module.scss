@@ -1,0 +1,18 @@
+.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.box {
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}

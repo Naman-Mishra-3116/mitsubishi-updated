@@ -1,5 +1,4 @@
 "use client";
-
 import MTypography from "@/ui/MTypography/MTypography";
 import { Badge, Box, Group, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
@@ -15,6 +14,8 @@ import { confirmationAlert } from "@/ui/MAlerts/confirmationAlert";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY } from "@/enums/queryKey.enum";
 import { notifications } from "@mantine/notifications";
+import ViewAllTrainingImages from "./ViewAllTrainingImages";
+import { useDisclosure } from "@mantine/hooks";
 
 const ViewSpecificTraining: React.FC = () => {
   const { trainingId } = useParams();
@@ -22,6 +23,9 @@ const ViewSpecificTraining: React.FC = () => {
   const { mutateAsync } = useApproveTraining();
   const { permission } = useAppSelector((state) => state.auth.user);
   const queryClient = useQueryClient();
+  const [opened, { open, close }] = useDisclosure(false);
+
+  console.log(data?.data);
   const handleApprove = async () => {
     const confirm = await confirmationAlert({
       title: "Approve Training",
@@ -89,6 +93,21 @@ const ViewSpecificTraining: React.FC = () => {
               <Text className={classes.label}>Total Students</Text>
               <Text className={classes.value}>{data?.data?.totalStudents}</Text>
             </Group>
+            <Group justify="space-between">
+              <Text className={classes.label}>View Training Images</Text>
+              <Box className={classes.value} onClick={open}>
+                <Badge
+                  style={{ cursor: "pointer" }}
+                  color="blue"
+                  variant="filled"
+                  size="lg"
+                  radius="md"
+                  w={120}
+                >
+                  View Images
+                </Badge>
+              </Box>
+            </Group>
 
             {permission === "WRITE" && !data?.data?.isApproved ? (
               <Group justify="space-between">
@@ -97,8 +116,8 @@ const ViewSpecificTraining: React.FC = () => {
                   <MButton
                     text="Approve"
                     variant="filled"
-                    size="sm"
-                    p="lg"
+                    size="md"
+                    p="sm"
                     radius="md"
                     handleClick={handleApprove}
                   />
@@ -113,6 +132,7 @@ const ViewSpecificTraining: React.FC = () => {
                     variant="filled"
                     size="lg"
                     radius="md"
+                    w={120}
                   >
                     {data?.data?.isApproved ? "Approved" : "Pending"}
                   </Badge>
@@ -123,6 +143,11 @@ const ViewSpecificTraining: React.FC = () => {
         </Box>
       </Box>
       <StudentTable data={data?.data?.csv ?? []} />;
+      <ViewAllTrainingImages
+        opened={opened}
+        onClose={close}
+        images={data?.data?.images ?? []}
+      />
     </Box>
   );
 };

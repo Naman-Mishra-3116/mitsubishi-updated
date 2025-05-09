@@ -20,6 +20,7 @@ const ViewAllTrainingImages: React.FC<IProps> = ({
 }) => {
   return (
     <Modal
+      radius={"md"}
       opened={opened}
       onClose={onClose}
       title={
@@ -36,7 +37,7 @@ const ViewAllTrainingImages: React.FC<IProps> = ({
     >
       <Carousel withIndicators height="auto">
         {images.map((item, index) => (
-          <CarouselSlide key={index} className={classes.slide}>
+          <CarouselSlide key={index} className={classes.slide} mb={"md"}>
             <Box className={classes.box}>
               <MImage
                 alt={`Training image ${index + 1}`}

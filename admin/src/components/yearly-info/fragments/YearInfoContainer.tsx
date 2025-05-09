@@ -49,7 +49,6 @@ const YearInfoContainer: React.FC = () => {
   }, [data]);
 
   const handleSubmit = async (values: typeof form.values) => {
-    console.log(values.calendar);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);

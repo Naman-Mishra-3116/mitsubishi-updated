@@ -1,11 +1,13 @@
 -api creation for retriving calendar @done
 -hooks creation for ret calendar @done
 -api url and api key addition @done
--api integration for adding yearly information 
--api integration for getting yearly information
+-api integration for adding yearly information  @done
+-api integration for getting yearly information @done
+
 -api integration for web calendar information
 -view training images model
 -change api for college profile completion 
 -change college profile completion form 
 -certificate design 
 -download certificate for training api
+-make application responsive.

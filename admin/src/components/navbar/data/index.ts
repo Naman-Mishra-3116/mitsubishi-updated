@@ -47,6 +47,11 @@ export const ReadHome: NavItem[] = [
     title: "View Trainings",
     tablerIcon: IconTrack,
   },
+  {
+    link: ROUTES.INFO,
+    title: "Yearly Information",
+    tablerIcon: IconCalendarTime,
+  },
 ];
 export const WriteHome: NavItem[] = [
   {

@@ -19,5 +19,5 @@ export const mountGeneralRoutes = (router: Router) => {
     controllers.generalControllers.getTrainingDataByID
   );
 
-  router.get("/calendar", controllers.generalControllers.getCalendar);
+  router.get("/get/calendar", controllers.generalControllers.getCalendar);
 };

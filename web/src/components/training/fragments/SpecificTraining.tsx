@@ -7,10 +7,39 @@ import { useParams } from "next/navigation";
 import React, { memo } from "react";
 import classes from "../styles/student.module.scss";
 import StudentTable from "./StudentTable";
+import axios from "axios";
+import { API_URL } from "@/enums/apiUrls.enum";
 
 const SpecificTraining: React.FC = () => {
   const { id } = useParams();
   const { data } = useGetSpecificTraining(id as string);
+
+  const handleGenerateCertificates = async () => {
+    try {
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_API_URL + API_URL.GENERATE_CERTIFICATE,
+        {},
+        {
+          responseType: "blob",
+        }
+      );
+
+      const blob = new Blob([response.data as Blob], {
+        type: "application/zip",
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "certificates.zip");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error generating certificates:", error);
+      alert("Something went wrong while generating the certificates.");
+    }
+  };
+
   return (
     <Box className={classes.top}>
       <Box className={classes.tBox}>
@@ -63,11 +92,31 @@ const SpecificTraining: React.FC = () => {
                   variant="filled"
                   size="lg"
                   radius="md"
+                  w={150}
                 >
                   {data?.data?.isApproved ? "Approved" : "Pending"}
                 </Badge>
               </Box>
             </Group>
+            {data?.data?.isApproved && (
+              <Group justify="space-between">
+                <Text className={classes.label}>Status</Text>
+                <Box
+                  className={classes.value}
+                  onClick={handleGenerateCertificates}
+                >
+                  <Badge
+                    color={"blue"}
+                    variant="filled"
+                    size="lg"
+                    radius="md"
+                    w={150}
+                  >
+                    Download Certificates
+                  </Badge>
+                </Box>
+              </Group>
+            )}
           </Stack>
         </Box>
       </Box>

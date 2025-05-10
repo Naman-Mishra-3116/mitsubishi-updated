@@ -10,4 +10,5 @@ export enum API_URL {
   GET_ALL_TRAINING = "/manager/allTraining",
   GET_SPECIFIC_TRAINING = "/general/:trainingId",
   GET_YEARLY_CALENDAR = "/general/get/calendar",
+  GENERATE_CERTIFICATE = "/general/certificate/:trainingId",
 }

@@ -5,9 +5,32 @@ import { InfoModel } from "../../../models/info.model";
 import fs from "fs";
 import { imageUrlToBase64 } from "../../../utils/imageURLToBase64";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
+import puppeteer from "puppeteer";
+import JSZip from "jszip";
+import { generateCertificate } from "../../../template/generateCertificate";
 
+const renderHtmlToPDF = async (html: string): Promise<Buffer> => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-export const genereateCertificate = async (
+  await page.setContent(html, { waitUntil: "networkidle0" });
+
+  const pdfBuffer = await page.pdf({
+    format: "A4",
+    printBackground: true,
+    margin: {
+      top: "0px",
+      right: "0px",
+      bottom: "0px",
+      left: "0px",
+    },
+  });
+
+  await browser.close();
+  return Buffer.from(pdfBuffer);
+};
+
+export const genereateCertificateController = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -139,11 +162,6 @@ export const genereateCertificate = async (
 
   const commonData: CommonData = data[0].commonData;
   const students = data[0].students;
-  let htmlTemplate = fs.readFileSync(
-    "../../../template/certificate.html",
-    "utf-8"
-  );
-
   const [
     mitsubishiHeadSignature,
     directorSignature,
@@ -155,4 +173,32 @@ export const genereateCertificate = async (
     imageUrlToBase64(commonData.managerSignature),
     imageUrlToBase64(commonData.collegeLogo),
   ]);
+
+  const zip = new JSZip();
+
+  for (const student of students) {
+    const html = generateCertificate(student, commonData, {
+      collegeLogo,
+      coordinator: coordinatorSignature,
+      director: directorSignature,
+      mitDesignation: info.designationOfMitsubhiHead,
+      mitHead: mitsubishiHeadSignature,
+      mitHeadName: info.nameOfMitsubishiHead,
+    });
+    const imageBuffer = await renderHtmlToPDF(html);
+
+    const fileName = `${student.studentName.replace(
+      /\s+/g,
+      "_"
+    )}_certificate.png`;
+    zip.file(fileName, imageBuffer);
+  }
+
+  const zipBuffer = await zip.generateAsync({ type: "nodebuffer" });
+  res.set({
+    "Content-Type": "application/zip",
+    "Content-Disposition": 'attachment; filename="certificates.zip"',
+  });
+
+  res.send(zipBuffer);
 };

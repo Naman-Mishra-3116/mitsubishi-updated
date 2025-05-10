@@ -39,7 +39,7 @@ export const completeCollegeProfile = async (
   const files = req.files as IFiles;
   let updatePayload: Record<string, any> = {};
 
-  if (files?.["collegeLogo"].length > 0) {
+  if (files?.["collegeLogo"]?.length > 0) {
     updatePayload.collegeLogo = getFilePaths(
       req,
       "images",
@@ -47,16 +47,16 @@ export const completeCollegeProfile = async (
     );
   }
 
-  if (files?.["managerSignature"].length > 0) {
-    updatePayload.collegeLogo = getFilePaths(
+  if (files?.["managerSignature"]?.length > 0) {
+    updatePayload.managerSignature = getFilePaths(
       req,
       "images",
       files["managerSignature"][0].filename
     );
   }
 
-  if (files?.["hodSignature"].length > 0) {
-    updatePayload.collegeLogo = getFilePaths(
+  if (files?.["hodSignature"]?.length > 0) {
+    updatePayload.hodSignature = getFilePaths(
       req,
       "images",
       files["hodSignature"][0].filename

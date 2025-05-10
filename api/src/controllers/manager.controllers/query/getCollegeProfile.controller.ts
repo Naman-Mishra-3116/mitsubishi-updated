@@ -33,6 +33,8 @@ export const getCollegeProfile = async (
     hodSignature,
   } = atcData?.collegeID as ICollegeDocument;
 
+  console.log(hodSignature, managerSignature);
+
   return jsonResponse(res, {
     status: "success",
     statusCode: 200,

@@ -36,14 +36,17 @@ const CollegeContainer: React.FC = () => {
   const queryClient = useQueryClient();
 
   const handleLogoSave = useCallback((f: File) => {
+    form.setFieldValue("collegeLogo", f);
     setFile1(f);
   }, []);
 
   const handleManagerSignature = useCallback((f: File) => {
+    form.setFieldValue("managerSignature", f);
     setFile2(f);
   }, []);
 
   const handleHODSignature = useCallback((f: File) => {
+    form.setFieldValue("hodSignature", f);
     setFile3(f);
   }, []);
 
@@ -81,18 +84,6 @@ const CollegeContainer: React.FC = () => {
   };
 
   useEffect(() => {
-    if (file1) {
-      form.setFieldValue("collegeLogo", file1);
-    }
-    if (file2) {
-      form.setFieldValue("managerSignature", file2);
-    }
-    if (file3) {
-      form.setFieldValue("hodSignature", file3);
-    }
-  }, [file1, file2, file3]);
-
-  useEffect(() => {
     if (data && data?.data && !isLoading) {
       const {
         collegeCity,
@@ -104,6 +95,10 @@ const CollegeContainer: React.FC = () => {
         hodSignature,
         managerSignature,
       } = data?.data;
+
+      console.log("college logo", collegeLogo);
+      console.log("m sign", managerSignature);
+      console.log("h sign", hodSignature);
 
       if (collegeLogo && collegeLogo !== logoPreview) {
         setLogoPreview(collegeLogo);

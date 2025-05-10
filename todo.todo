@@ -6,8 +6,8 @@
 -api integration for web calendar information @done;
 -view training images model @done
 
--change api for college profile completion 
--change college profile completion form 
+-change api for college profile completion @done;
+-change college profile completion form @done;
 -certificate design 
 -download certificate for training api
 -make application responsive.

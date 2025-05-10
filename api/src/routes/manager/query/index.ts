@@ -39,7 +39,12 @@ export const mountManagerRouter = (router: Router) => {
   router.post(
     "/completeProfile",
     validateJWTToken,
-    UploadFile.single("collegeLogo"),
+    UploadFile.fields([
+      { name: "collegeLogo", maxCount: 1 },
+      { name: "managerSignature", maxCount: 1 },
+      { name: "hodSignature", maxCount: 1 },
+    ]),
+
     controllers.managerControllers.completeCollegeProfile
   );
 

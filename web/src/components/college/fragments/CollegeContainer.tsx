@@ -1,45 +1,66 @@
 "use client";
+import { QUERY_KEY } from "@/enums/queryKey.enum";
+import { useCompleteProfileMutation } from "@/hooks/mutation/useCompleteCollegeProfile.mutation";
 import { useGetCollegeProfile } from "@/hooks/query/useGetCollegeProfile.query";
 import MButton from "@/ui/MButton/MButton";
 import MImageInput from "@/ui/MInput/MImageInput";
 import MInput from "@/ui/MInput/MInput";
+import MLoader from "@/ui/MLoader/MLoader";
 import MTypography from "@/ui/MTypography/MTypography";
-import { Box } from "@mantine/core";
-import { useForm, yupResolver } from "@mantine/form";
-import React, { memo, useEffect, useState } from "react";
-import classes from "../styles/index.module.scss";
-import { useCompleteProfileMutation } from "@/hooks/mutation/useCompleteCollegeProfile.mutation";
 import {
   collegeInitials,
   collegeProfileSchema,
+  TCollegeInitials,
 } from "@/validation/college.validator";
-import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEY } from "@/enums/queryKey.enum";
+import { Box } from "@mantine/core";
+import { useForm, yupResolver } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import classes from "../styles/index.module.scss";
 
 const CollegeContainer: React.FC = () => {
   const { mutateAsync } = useCompleteProfileMutation();
-  const [file, setFile] = useState<File | undefined>(undefined);
-  const [preview, setPreview] = useState<string>("");
-  const { data } = useGetCollegeProfile();
+  const [logoPreview, setLogoPreview] = useState<string>("");
+  const [managerSigPre, setManagerSigPre] = useState<string>("");
+  const [hodSigPre, setHodSigPre] = useState<string>("");
+  const { data, isLoading } = useGetCollegeProfile();
   const [mode, setMode] = useState<"edit" | "update">("edit");
-  const form = useForm({
+  const [file1, setFile1] = useState<File | undefined>(undefined);
+  const [file2, setFile2] = useState<File | undefined>(undefined);
+  const [file3, setFile3] = useState<File | undefined>(undefined);
+  const form = useForm<TCollegeInitials>({
     initialValues: collegeInitials,
     validate: yupResolver(collegeProfileSchema),
   });
   const queryClient = useQueryClient();
 
-  const handleSubmit = async (values: typeof form.values) => {
-    if (!file) {
-      form.setFieldError("collegeLogo", "This field is required");
-      return;
-    }
+  const handleLogoSave = useCallback((f: File) => {
+    setFile1(f);
+  }, []);
 
+  const handleManagerSignature = useCallback((f: File) => {
+    setFile2(f);
+  }, []);
+
+  const handleHODSignature = useCallback((f: File) => {
+    setFile3(f);
+  }, []);
+
+  const handleSubmit = async (values: typeof form.values) => {
     const formData = new FormData();
     formData.append("collegeName", values.collegeName);
     formData.append("nameOfHOD", values.nameOfHOD);
-    if (file) {
-      formData.append("collegeLogo", file);
+    if (file1) {
+      formData.append("collegeLogo", file1);
+    }
+
+    if (file2) {
+      formData.append("managerSignature", file2);
+    }
+
+    if (file3) {
+      formData.append("hodSignature", file3);
     }
 
     const resp = await mutateAsync(formData);
@@ -60,7 +81,19 @@ const CollegeContainer: React.FC = () => {
   };
 
   useEffect(() => {
-    if (data && data?.data) {
+    if (file1) {
+      form.setFieldValue("collegeLogo", file1);
+    }
+    if (file2) {
+      form.setFieldValue("managerSignature", file2);
+    }
+    if (file3) {
+      form.setFieldValue("hodSignature", file3);
+    }
+  }, [file1, file2, file3]);
+
+  useEffect(() => {
+    if (data && data?.data && !isLoading) {
       const {
         collegeCity,
         collegeLogo,
@@ -68,24 +101,39 @@ const CollegeContainer: React.FC = () => {
         nameOfHOD,
         latitude,
         longitude,
+        hodSignature,
+        managerSignature,
       } = data?.data;
 
-      if (collegeLogo) {
-        setPreview(collegeLogo);
+      if (collegeLogo && collegeLogo !== logoPreview) {
+        setLogoPreview(collegeLogo);
+      }
+
+      if (hodSignature && hodSignature !== hodSigPre) {
+        setHodSigPre(hodSignature);
+      }
+
+      if (managerSignature && managerSignature !== managerSigPre) {
+        setManagerSigPre(managerSignature);
       }
 
       form.setValues({
         collegeCity,
         collegeName,
         collegeLogo,
+        logoPreview: collegeLogo,
         nameOfHOD: nameOfHOD ?? "",
         latitude,
         longitude,
+        hodSignaturePreview: hodSignature,
+        managerSignaturePreview: managerSignature,
       });
     }
-  }, [data]);
+  }, [data, isLoading]);
 
-  return (
+  return isLoading ? (
+    <MLoader type="dots" />
+  ) : (
     <Box className={classes.rootBox}>
       <Box className={classes.header}>
         <MTypography
@@ -103,16 +151,46 @@ const CollegeContainer: React.FC = () => {
       </Box>
 
       <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)}>
-        <MImageInput
-          cropShape="rect"
-          label="College Logo"
-          handleFormSave={(file) => setFile(file)}
-          className={classes.file}
-          error={form.errors.collegeLogo as string}
-          showDeleteButton={mode === "update"}
-          initialPreview={preview}
-          key={preview}
-        />
+        <Box
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: "20px",
+          }}
+          className={classes.fullGrid}
+        >
+          <MImageInput
+            cropShape="rect"
+            label="College Logo"
+            handleFormSave={handleLogoSave}
+            error={form.errors.collegeLogo as string}
+            showDeleteButton={mode === "update"}
+            initialPreview={logoPreview}
+            key={logoPreview || "l"}
+          />
+
+          <MImageInput
+            cropShape="rect"
+            label="Manager Signatrue"
+            handleFormSave={handleManagerSignature}
+            error={form.errors.managerSignature as string}
+            showDeleteButton={mode === "update"}
+            initialPreview={managerSigPre}
+            aspectRatio={2 / 1}
+            key={managerSigPre || "m"}
+          />
+
+          <MImageInput
+            cropShape="rect"
+            label="HOD Signature"
+            handleFormSave={handleHODSignature}
+            error={form.errors.hodSignature as string}
+            showDeleteButton={mode === "update"}
+            initialPreview={hodSigPre}
+            aspectRatio={2 / 1}
+            key={hodSigPre || "h"}
+          />
+        </Box>
 
         <MInput
           required

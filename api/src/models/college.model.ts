@@ -23,6 +23,12 @@ const collegeSchema = new Schema<ICollegeDocument>({
     type: String,
   },
 
+  managerSignature: {
+    type: String,
+  },
+  hodSignature: {
+    type: String,
+  },
   nameOfHOD: {
     type: String,
   },

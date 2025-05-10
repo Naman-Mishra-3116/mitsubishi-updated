@@ -8,4 +8,6 @@ export interface ICollegeDocument extends Document {
   latitude: number;
   longitude: number;
   profileCompleted: boolean;
+  managerSignature: string;
+  hodSignature: string;
 }

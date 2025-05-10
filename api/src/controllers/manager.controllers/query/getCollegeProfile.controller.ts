@@ -29,6 +29,8 @@ export const getCollegeProfile = async (
     nameOfHOD,
     latitude,
     longitude,
+    managerSignature,
+    hodSignature,
   } = atcData?.collegeID as ICollegeDocument;
 
   return jsonResponse(res, {
@@ -42,6 +44,8 @@ export const getCollegeProfile = async (
       nameOfHOD,
       latitude,
       longitude,
+      managerSignature,
+      hodSignature,
     },
   });
 };

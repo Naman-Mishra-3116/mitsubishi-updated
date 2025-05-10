@@ -19,6 +19,10 @@ export const AllStudents: TTableColumns<Student>[] = [
     label: "Enroll No.",
   },
   {
+    key:"College",
+    label:"College",
+  },
+  {
     key: "Email",
     label: "Email",
   },

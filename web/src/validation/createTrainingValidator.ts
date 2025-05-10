@@ -69,6 +69,7 @@ export const validateExcelColumns = async (file: File | null) => {
   const expectedHeaders = [
     "Name",
     "RollNumber",
+    "College",
     "Email",
     "TotalAttendance",
     "Feedback",

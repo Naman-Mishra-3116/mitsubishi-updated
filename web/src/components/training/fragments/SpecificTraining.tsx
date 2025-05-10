@@ -1,21 +1,24 @@
 "use client";
+import { API_URL } from "@/enums/apiUrls.enum";
 import { useGetSpecificTraining } from "@/hooks/query/useGetSpecificTraining.query";
+import MLoader from "@/ui/MLoader/MLoader";
 import MTypography from "@/ui/MTypography/MTypography";
 import { Badge, Box, Group, Stack, Text } from "@mantine/core";
+import axios from "axios";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import classes from "../styles/student.module.scss";
 import StudentTable from "./StudentTable";
-import axios from "axios";
-import { API_URL } from "@/enums/apiUrls.enum";
 
 const SpecificTraining: React.FC = () => {
   const { id } = useParams();
   const { data } = useGetSpecificTraining(id as string);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerateCertificates = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL +
           API_URL.GENERATE_CERTIFICATE.replace(":trainingId", id as string),
@@ -26,6 +29,7 @@ const SpecificTraining: React.FC = () => {
       );
 
       console.log(response, "response");
+      setIsLoading(false);
 
       const blob = new Blob([response.data as Blob], {
         type: "application/zip",
@@ -43,7 +47,12 @@ const SpecificTraining: React.FC = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <MLoader
+      type="dots"
+      message="Please Wait certificates are beging generated ..."
+    />
+  ) : (
     <Box className={classes.top}>
       <Box className={classes.tBox}>
         <Box className={classes.tLeft}>

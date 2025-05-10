@@ -1,17 +1,28 @@
+import { Center, Flex, Loader } from "@mantine/core";
 import React, { memo } from "react";
-import { Center, Loader } from "@mantine/core";
+import MTypography from "../MTypography/MTypography";
 import classes from "./index.module.scss";
 interface IProps {
   className?: string;
   type: "bars" | "dots" | "oval";
   color?: string;
   size?: "md" | "lg" | "sm" | "xs" | "xl";
+  message?: string;
 }
 
-const MLoader: React.FC<IProps> = ({ type, className, color, size }) => {
+const MLoader: React.FC<IProps> = ({
+  type,
+  className,
+  color,
+  size,
+  message,
+}) => {
   return (
     <Center className={className ?? classes.root}>
-      <Loader color={color ?? "red"} type={type} size={size ?? "lg"} />
+      <Flex direction="column" align="center" gap={8}>
+        {message && <MTypography text={message} variant="descriptionMedium" />}
+        <Loader color={color ?? "red"} type={type} size={size ?? "lg"} />
+      </Flex>
     </Center>
   );
 };

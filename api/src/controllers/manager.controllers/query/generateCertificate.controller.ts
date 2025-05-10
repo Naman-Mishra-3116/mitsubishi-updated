@@ -8,25 +8,46 @@ import { generateCertificate } from "../../../template/generateCertificate";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import { imageUrlToBase64 } from "../../../utils/imageURLToBase64";
 
-const renderHtmlToPDF = async (html: string): Promise<Buffer> => {
+// const renderHtmlToPDF = async (html: string): Promise<Buffer> => {
+//   const browser = await puppeteer.launch();
+//   const page = await browser.newPage();
+
+//   await page.setContent(html, { waitUntil: "networkidle0" });
+
+//   const pdfBuffer = await page.pdf({
+//     format: "A4",
+//     printBackground: true,
+//     margin: {
+//       top: "0px",
+//       right: "0px",
+//       bottom: "0px",
+//       left: "0px",
+//     },
+//   });
+
+//   await browser.close();
+//   return Buffer.from(pdfBuffer);
+// };
+
+const renderHtmlToPNG = async (html: string): Promise<Buffer> => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
+  await page.setViewport({
+    width: 1200,
+    height: 1700,
+    deviceScaleFactor: 2,
+  });
+
   await page.setContent(html, { waitUntil: "networkidle0" });
 
-  const pdfBuffer = await page.pdf({
-    format: "A4",
-    printBackground: true,
-    margin: {
-      top: "0px",
-      right: "0px",
-      bottom: "0px",
-      left: "0px",
-    },
+  const imageBuffer = await page.screenshot({
+    type: "png",
+    fullPage: true,
   });
 
   await browser.close();
-  return Buffer.from(pdfBuffer);
+  return Buffer.from(imageBuffer);
 };
 
 export const genereateCertificateController = async (
@@ -186,12 +207,12 @@ export const genereateCertificateController = async (
         mitHeadName: info.nameOfMitsubishiHead,
       });
 
-      const imageBuffer = await renderHtmlToPDF(html);
+      const imageBuffer = await renderHtmlToPNG(html);
 
       const fileName = `${student.studentName.replace(
         /\s+/g,
         "_"
-      )}_certificate.pdf`;
+      )}_certificate.png`;
       zip.file(fileName, imageBuffer);
     }
 
@@ -200,7 +221,6 @@ export const genereateCertificateController = async (
       "Content-Type": "application/zip",
       "Content-Disposition": 'attachment; filename="certificates.zip"',
     });
-
 
     return res.status(200).send(zipBuffer);
   } catch (error) {

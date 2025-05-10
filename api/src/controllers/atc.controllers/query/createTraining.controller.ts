@@ -4,6 +4,8 @@ import { Training } from "../../../models/training.model";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import { jsonResponse } from "../../../utils/jsonResponse";
 import { ATC } from "../../../models/atc.model";
+import { readExcelFromUrl } from "../../../utils/readXLSXData";
+import { StudentModel } from "../../../models/student.model";
 
 export const createTraining = async (
   req: Request,
@@ -66,6 +68,30 @@ export const createTraining = async (
     },
     { new: true }
   );
+
+  const rows = await readExcelFromUrl(attendencePath as string);
+
+  const students = rows.map((row) => ({
+    name: row["Name"],
+    rollNumber: row["RollNumber"],
+    studentCollegeName: row["College"],
+    email: row["Email"],
+    feedback: row["Feedback"] || "",
+    certificateGenerated: false,
+    trainingId: newTraining._id,
+  }));
+
+  const inserted = await StudentModel.insertMany(students);
+
+  if (!inserted) {
+    return next(
+      new ErrorResponse(
+        ErrorType.BAD_REQUEST,
+        "Something went wrong while creating student entry",
+        "Internal Server Error"
+      )
+    );
+  }
 
   return jsonResponse(res, {
     status: "success",

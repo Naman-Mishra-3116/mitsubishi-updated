@@ -166,7 +166,7 @@ const CollegeContainer: React.FC = () => {
 
           <MImageInput
             cropShape="rect"
-            label="Manager Signatrue"
+            label="Coordinator Signatrue"
             handleFormSave={handleManagerSignature}
             error={form.errors.managerSignature as string}
             showDeleteButton={mode === "update"}
@@ -177,7 +177,7 @@ const CollegeContainer: React.FC = () => {
 
           <MImageInput
             cropShape="rect"
-            label="HOD Signature"
+            label="Director Signature"
             handleFormSave={handleHODSignature}
             error={form.errors.hodSignature as string}
             showDeleteButton={mode === "update"}
@@ -203,7 +203,7 @@ const CollegeContainer: React.FC = () => {
           value={form.values.nameOfHOD}
           required
           variant="text"
-          label="Name of HOD"
+          label="Name of Director/HOD"
           placeholder="John Doe"
           formHandler={form.getInputProps("nameOfHOD")}
           className={classes.fullGrid}

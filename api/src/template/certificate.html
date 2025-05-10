@@ -34,7 +34,7 @@
         "
       >
         <img
-          src="./logo.png"
+          src="COLLEGE_LOGO_LINK"
           alt="University Logo"
           style="
             position: absolute;
@@ -103,21 +103,20 @@
         "
       >
         <p>
-          This is to certify that <strong>ANAND KUMAR SHAH</strong>, a student
-          from <strong>Oriental University, Indore</strong>, has successfully
-          attended a <strong>One Week Training Program</strong> on
-          <strong>“Basics of PLC & Ladder Logic Design”</strong> from
-          <strong>03 Feb. – 07 Feb. 2025</strong>.
+          This is to certify that <strong>STUDENT_NAME</strong>, a student from
+          <strong>STUDENT_COLLEGE_NAME</strong>, has successfully attended a
+          <strong>Training Program</strong> on
+          <strong>“TRAINING_TITLE”</strong> from
+          <strong>START_DATE – END_DATE</strong>.
         </p>
         <p>
           The program was conducted in collaboration with
           <strong>Mitsubishi Electric India</strong> (Authorised Training Center
-          – Factory Automation) at
-          <strong>Shri Vaishnav Vidyapeeth Vishwavidyalaya, Indore</strong>.
+          – Factory Automation) at <strong>ATC_COLLEGE, ATC_CITY</strong>.
         </p>
 
         <p style="color: #d62828fc; font-weight: bold; font-size: 18px">
-          Issue Date: 13/02/2025
+          Issue Date: CURRENT_DATE
         </p>
       </div>
 
@@ -132,7 +131,7 @@
       >
         <div style="width: 30%; position: relative">
           <img
-            src="./signature.png"
+            src="SIGNATURE_ONE"
             style="
               position: absolute;
               width: 150px;
@@ -143,14 +142,14 @@
           />
           <div style="margin-bottom: 20px">_________________________</div>
           <strong style="color: #d62828fc; font-weight: bolder"
-            >Mr. Manoj Gupta</strong
+            >MITSUBISHI_HEAD</strong
           ><br />
-          AGM (Training Head)<br />
+          HEAD_DESIGNATION<br />
           Mitsubishi Electric India Pvt. Ltd.
         </div>
         <div style="width: 30%; position: relative">
           <img
-            src="./signature.png"
+            src="SIGNATURE_TWO"
             style="
               position: absolute;
               width: 150px;
@@ -161,14 +160,14 @@
           />
           <div style="margin-bottom: 10px">_________________________</div>
           <strong style="color: #d62828fc; font-weight: bolder"
-            >Dr. Namit Gupta</strong
+            >DIRECTOR_NAME</strong
           ><br />
-          Director, SVITS<br />
-          Shri Vaishnav Vidyapeeth Vishwavidyalaya
+          DIRECTOR_DESIGNATION<br />
+          DIRECTOR_COLLEGE
         </div>
         <div style="width: 30%; position: relative">
           <img
-            src="./signature.png"
+            src="SIGNATURE_THREE"
             style="
               position: absolute;
               width: 150px;
@@ -180,14 +179,14 @@
           <div style="margin-bottom: 20px; font-weight: bolder">
             _________________________
           </div>
-          <strong style="color: #d62828fc">Prof. Lalit Bhanwrela</strong><br />
+          <strong style="color: #d62828fc">MANAGER_NAME</strong><br />
           Coordinator<br />
-          Shri Vaishnav Vidyapeeth Vishwavidyalaya
+          COORDINATOR_COLLEGE
         </div>
 
         <div style="text-align: center; font-size: 12px; width: 10%">
           <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://verify-cert.example.com/anand-kumar-shah"
+            src="QR_CODE_IMAGE"
             alt="QR Code"
             style="border: 1px solid #ccc; padding: 4px; background: #fff"
           />
@@ -198,3 +197,28 @@
   </body>
 </html>
 
+
+<!-- let html = baseTemplate
+  .replace(/STUDENT_NAME/g, student.name)
+  .replace(/STUDENT_COLLEGE_NAME/g, student.college)
+  .replace(/TRAINING_TITLE/g, training.title)
+  .replace(/START_DATE/g, training.startDate)
+  .replace(/END_DATE/g, training.endDate)
+  .replace(/CURRENT_DATE/g, training.issueDate)
+  .replace(/ATC_COLLEGE/g, training.atcCollege)
+  .replace(/ATC_CITY/g, training.atcCity)
+  .replace(/DIRECTOR_COLLEGE/g, signatories.director.college)
+  .replace(/COORDINATOR_COLLEGE/g, signatories.coordinator.college)
+
+  .replace(/MITSUBISHI_HEAD/g, signatories.mitsubishi.name)
+  .replace(/HEAD_DESIGNATION/g, signatories.mitsubishi.designation)
+
+  .replace(/DIRECTOR_NAME/g, signatories.director.name)
+  .replace(/DIRECTOR_DESIGNATION/g, signatories.director.designation)
+
+  .replace(/MANAGER_NAME/g, signatories.coordinator.name)
+  .replace(/SIGNATURE_ONE/g, signatories.mitsubishi.signature)
+  .replace(/SIGNATURE_TWO/g, signatories.director.signature)
+  .replace(/SIGNATURE_THREE/g, signatories.coordinator.signature)
+  .replace(/COLLEGE_LOGO_LINK/g, assets.collegeLogo)
+  .replace(/QR_CODE_IMAGE/g, assets.qrCodeUrl); -->

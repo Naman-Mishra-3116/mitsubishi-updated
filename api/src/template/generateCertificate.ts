@@ -1,4 +1,22 @@
-<!DOCTYPE html>
+import { MITSUBISHI_LOGO } from "./getMitsubishiLogo";
+import moment from "moment";
+
+export const generateCertificate = (
+  student: Student,
+  commonData: CommonData,
+  imageAndMitsubishiData: {
+    mitHead: string;
+    director: string;
+    coordinator: string;
+    collegeLogo: string;
+    mitDesignation: string;
+    mitHeadName: string;
+  }
+) => {
+  const startDate = moment(commonData.startDate).format("DD MMM");
+  const endDate = moment(commonData.endDate).format("DD MMM YYYY");
+  const today = moment().format("DD-MMM-YYYY");
+  return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -34,7 +52,7 @@
         "
       >
         <img
-          src="./logo.png"
+          src=${imageAndMitsubishiData.collegeLogo}
           alt="University Logo"
           style="
             position: absolute;
@@ -48,7 +66,7 @@
         />
 
         <img
-          src="./mitsubishi.png"
+          src=${MITSUBISHI_LOGO}
           alt="Mitsubishi Logo"
           style="
             position: absolute;
@@ -103,22 +121,21 @@
         "
       >
         <p>
-          This is to certify that <strong>ANAND KUMAR SHAH</strong>, a student
-          from <strong>Oriental University, Indore</strong>, has successfully
-          attended a <strong>One Week Training Program</strong> on
-          <strong>“Basics of PLC & Ladder Logic Design”</strong> from
-          <strong>03 Feb. – 07 Feb. 2025</strong>.
+          This is to certify that <strong>${student.studentName}</strong>, a student from
+          <strong>${student.studentCollegeName}</strong>, has successfully attended a
+          <strong>Training Program</strong> on
+          <strong>“${commonData.trainingTitle}”</strong> from
+          <strong>${startDate} – ${endDate}</strong>.
         </p>
         <p>
           The program was conducted in collaboration with
           <strong>Mitsubishi Electric India</strong> (Authorised Training Center
-          – Factory Automation) at
-          <strong>Shri Vaishnav Vidyapeeth Vishwavidyalaya, Indore</strong>.
+          – Factory Automation) at <strong>${commonData.college}, ${commonData.atcCity}</strong>.
         </p>
 
-        <p style="color: #d62828fc; font-weight: bold; font-size: 18px">
-          Issue Date: 13/02/2025
-        </p>
+        <pi style="color: #d62828fc; font-weight: bold; font-size: 18px">
+          Issue Date: ${today}
+        </pi  
       </div>
 
       <div
@@ -132,7 +149,7 @@
       >
         <div style="width: 30%; position: relative">
           <img
-            src="./signature.png"
+            src=${imageAndMitsubishiData.mitHead}
             style="
               position: absolute;
               width: 150px;
@@ -143,14 +160,14 @@
           />
           <div style="margin-bottom: 20px">_________________________</div>
           <strong style="color: #d62828fc; font-weight: bolder"
-            >Mr. Manoj Gupta</strong
+>${imageAndMitsubishiData.mitHeadName}</strong
           ><br />
-          AGM (Training Head)<br />
+${imageAndMitsubishiData.mitDesignation}<br />
           Mitsubishi Electric India Pvt. Ltd.
         </div>
         <div style="width: 30%; position: relative">
           <img
-            src="./signature.png"
+            src=${imageAndMitsubishiData.director}
             style="
               position: absolute;
               width: 150px;
@@ -161,14 +178,14 @@
           />
           <div style="margin-bottom: 10px">_________________________</div>
           <strong style="color: #d62828fc; font-weight: bolder"
-            >Dr. Namit Gupta</strong
+>${commonData.directorName}</strong
           ><br />
-          Director, SVITS<br />
-          Shri Vaishnav Vidyapeeth Vishwavidyalaya
+         ${commonData.directorDesignation}<br />
+         ${commonData.college}
         </div>
         <div style="width: 30%; position: relative">
           <img
-            src="./signature.png"
+            src=${imageAndMitsubishiData.coordinator}
             style="
               position: absolute;
               width: 150px;
@@ -180,14 +197,14 @@
           <div style="margin-bottom: 20px; font-weight: bolder">
             _________________________
           </div>
-          <strong style="color: #d62828fc">Prof. Lalit Bhanwrela</strong><br />
+          <strong style="color: #d62828fc">${commonData.managerName}</strong><br />
           Coordinator<br />
-          Shri Vaishnav Vidyapeeth Vishwavidyalaya
+          ${commonData.college}
         </div>
 
         <div style="text-align: center; font-size: 12px; width: 10%">
           <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://verify-cert.example.com/anand-kumar-shah"
+            src="QR_CODE_IMAGE"
             alt="QR Code"
             style="border: 1px solid #ccc; padding: 4px; background: #fff"
           />
@@ -196,5 +213,5 @@
       </div>
     </div>
   </body>
-</html>
-
+</html>"`;
+};

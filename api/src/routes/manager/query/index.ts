@@ -62,7 +62,7 @@ export const mountManagerRouter = (router: Router) => {
 
   router.post(
     "/certificate/:trainingId",
-    validateJWTToken,
+    // validateJWTToken,
     controllers.managerControllers.genereateCertificateController
   );
 };

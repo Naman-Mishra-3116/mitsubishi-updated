@@ -17,12 +17,15 @@ const SpecificTraining: React.FC = () => {
   const handleGenerateCertificates = async () => {
     try {
       const response = await axios.post(
-        process.env.NEXT_PUBLIC_API_URL + API_URL.GENERATE_CERTIFICATE,
+        process.env.NEXT_PUBLIC_API_URL +
+          API_URL.GENERATE_CERTIFICATE.replace(":trainingId", id as string),
         {},
         {
           responseType: "blob",
         }
       );
+
+      console.log(response, "response");
 
       const blob = new Blob([response.data as Blob], {
         type: "application/zip",

@@ -38,16 +38,19 @@ const CollegeContainer: React.FC = () => {
   const handleLogoSave = useCallback((f: File) => {
     form.setFieldValue("collegeLogo", f);
     setFile1(f);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleManagerSignature = useCallback((f: File) => {
     form.setFieldValue("managerSignature", f);
     setFile2(f);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleHODSignature = useCallback((f: File) => {
     form.setFieldValue("hodSignature", f);
     setFile3(f);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (values: typeof form.values) => {
@@ -96,10 +99,6 @@ const CollegeContainer: React.FC = () => {
         managerSignature,
       } = data?.data;
 
-      console.log("college logo", collegeLogo);
-      console.log("m sign", managerSignature);
-      console.log("h sign", hodSignature);
-
       if (collegeLogo && collegeLogo !== logoPreview) {
         setLogoPreview(collegeLogo);
       }
@@ -124,6 +123,7 @@ const CollegeContainer: React.FC = () => {
         managerSignaturePreview: managerSignature,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isLoading]);
 
   return isLoading ? (

@@ -72,7 +72,7 @@ const Profile = () => {
               <MTypography
                 variant="normal"
                 text={managerEmail}
-                fontSize="16px"
+                fontSize="12px"
                 fontWeight={600}
                 color="white9B"
               />

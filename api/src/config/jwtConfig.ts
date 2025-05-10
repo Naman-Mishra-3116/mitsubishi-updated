@@ -37,8 +37,8 @@ export class JwtConfig {
       if (isValidToken) {
         return jwt.decode(token);
       }
-    } catch (error) {
-      console.log(error, "jwt error");
+    } catch (error: unknown) {
+      console.log((error as Error).message, "jwt error");
       return false;
     }
   }

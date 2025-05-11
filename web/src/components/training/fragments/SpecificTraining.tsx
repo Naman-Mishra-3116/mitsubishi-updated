@@ -36,6 +36,7 @@ const SpecificTraining: React.FC = () => {
           responseType: "blob",
         }
       );
+      console.log(response);
 
       setIsLoading(false);
 

@@ -18,7 +18,7 @@ export const useGetManagerLoginData = () => {
   return useQuery({
     queryFn: getManagerLoginData,
     queryKey: [QUERY_KEY.GET_MANAGER_LOGIN_DATA],
-    refetchInterval: isAuthenticated ? 10000 : false,
+    refetchInterval: isAuthenticated ? 30000 : false,
     refetchIntervalInBackground: true,
   });
 };

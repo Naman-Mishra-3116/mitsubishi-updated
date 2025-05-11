@@ -196,6 +196,7 @@ export const genereateCertificateController = async (
 
     return res.status(200).send(zipBuffer);
   } catch (error) {
+    console.log((error as Error).message, "thhis is the error ");
     return next(
       new ErrorResponse(
         ErrorType.INTERNAL_ERROR,

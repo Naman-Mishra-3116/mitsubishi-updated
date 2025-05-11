@@ -11,6 +11,7 @@ import { CommonRoutesConfig } from "./routes/common.routes";
 import path from "path";
 import { ManagerRoutes } from "./routes/manager/manager.routes";
 import { GeneralRoutes } from "./routes/general/general.routes";
+import "./crons/serverCleanerCron.cron";
 config();
 
 const app: Express = express();
@@ -31,7 +32,7 @@ const uploadsPath = path.resolve(__dirname, "..", "..", "uploads");
 
 app.use("/uploads", express.static(uploadsPath));
 app.use(cookieParser(process.env.COOKIE_SECRET ?? "aVerySecretCookie"));
-app.use(morgan("tiny"));
+// app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

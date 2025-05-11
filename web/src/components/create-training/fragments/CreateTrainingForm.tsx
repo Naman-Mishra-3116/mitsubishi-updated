@@ -81,8 +81,8 @@ const CreateTrainingForm: React.FC = () => {
     });
 
     if (resp.status === "success") {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_DASHBOARD] });
       router.push(`/atc/${resp.data}`);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_DASHBOARD] });
     }
   };
 

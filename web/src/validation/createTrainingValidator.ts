@@ -71,7 +71,6 @@ export const validateExcelColumns = async (file: File | null) => {
     "RollNumber",
     "College",
     "Email",
-    "TotalAttendance",
     "Feedback",
   ];
   const headers = json[0] || [];

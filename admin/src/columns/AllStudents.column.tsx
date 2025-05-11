@@ -5,7 +5,7 @@ export type Student = {
   Name: string;
   RollNumber: string;
   Email: string;
-  TotalAttendence: string;
+  College: string;
   Feedback: string;
 };
 
@@ -19,20 +19,16 @@ export const AllStudents: TTableColumns<Student>[] = [
     label: "Enroll No.",
   },
   {
-    key:"College",
-    label:"College",
+    key: "College",
+    label: "College",
   },
   {
     key: "Email",
     label: "Email",
   },
   {
-    key: "TotalAttendance",
-    label: "Attendance",
-  },
-  {
     key: "Feedback",
-    label: "Training Feedback",
+    label: "Student Feedback",
     renderCell: (item) => {
       return <Text size="md">{item.Feedback}</Text>;
     },

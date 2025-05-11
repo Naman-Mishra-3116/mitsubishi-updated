@@ -4,8 +4,8 @@ import { Text } from "@mantine/core";
 export type Student = {
   Name: string;
   RollNumber: string;
+  College: string;
   Email: string;
-  TotalAttendence: string;
   Feedback: string;
 };
 
@@ -27,12 +27,8 @@ export const AllStudents: TTableColumns<Student>[] = [
     label: "Email",
   },
   {
-    key: "TotalAttendance",
-    label: "Attendance",
-  },
-  {
     key: "Feedback",
-    label: "Training Feedback",
+    label: "Student Feedback",
     renderCell: (item) => {
       return <Text size="md">{item.Feedback}</Text>;
     },

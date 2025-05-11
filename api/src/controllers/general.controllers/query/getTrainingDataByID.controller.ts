@@ -1,11 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
+import { IATCDocument } from "../../../interface/iATCDocument";
+import { StudentModel } from "../../../models/student.model";
 import { Training } from "../../../models/training.model";
 import { ErrorResponse, ErrorType } from "../../../utils/customError";
-import { readExcelFromUrl } from "../../../utils/readXLSXData";
 import { jsonResponse } from "../../../utils/jsonResponse";
-import { IATCDocument } from "../../../interface/iATCDocument";
-import { paginationService } from "../../../services/paginationService";
-import { StudentModel } from "../../../models/student.model";
 
 export const getTrainingDataByID = async (
   req: Request,
@@ -24,7 +23,22 @@ export const getTrainingDataByID = async (
     );
   }
 
-  const csvData = await readExcelFromUrl(data.attendence);
+  const csvData = await StudentModel.aggregate([
+    {
+      $match: {
+        trainingId: new mongoose.Types.ObjectId(trainingId),
+      },
+    },
+    {
+      $project: {
+        Name: "$name",
+        College: "$studentCollegeName",
+        RollNumber: "$rollNumber",
+        Email: "$email",
+        Feedback: "$feedback",
+      },
+    },
+  ]);
 
   return jsonResponse(res, {
     status: "success",

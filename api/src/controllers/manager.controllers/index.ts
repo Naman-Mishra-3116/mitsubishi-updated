@@ -6,6 +6,7 @@ import { editManagerById } from "./query/editMangerById.controller";
 import { genereateCertificateController } from "./query/generateCertificate.controller";
 import { getAllATCTraining } from "./query/getAllATCTraining.controller";
 import { getAllManagers } from "./query/getAllManagers.controller";
+import { getATCDashboard } from "./query/getATCDashboard.controller";
 import { getCollegeProfile } from "./query/getCollegeProfile.controller";
 import { getManagerByATCId } from "./query/getManagerByATCId.controller";
 import { getManagerLoginData } from "./query/getManagerData.controller";
@@ -22,4 +23,5 @@ export const managerControllers = {
   completeCollegeProfile: asyncWrapper(completeCollegeProfile),
   getAllATCTraining: asyncWrapper(getAllATCTraining),
   genereateCertificateController: asyncWrapper(genereateCertificateController),
+  getATCDashboard: asyncWrapper(getATCDashboard),
 };

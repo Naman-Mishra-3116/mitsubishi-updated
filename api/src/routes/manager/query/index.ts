@@ -3,6 +3,7 @@ import validateJWTToken from "../../../middleware/validateToken.middleware";
 import controllers from "../../../controllers";
 import { validateAccess } from "../../../middleware/validateAccess.middleware";
 import { UploadFile } from "../../../middleware/multer.middleware";
+import { managerControllers } from "../../../controllers/manager.controllers";
 
 export const mountManagerRouter = (router: Router) => {
   router.get(
@@ -64,5 +65,11 @@ export const mountManagerRouter = (router: Router) => {
     "/certificate/:trainingId",
     // validateJWTToken,
     controllers.managerControllers.genereateCertificateController
+  );
+
+  router.get(
+    "/dashboard",
+    validateJWTToken,
+    controllers.managerControllers.getATCDashboard
   );
 };

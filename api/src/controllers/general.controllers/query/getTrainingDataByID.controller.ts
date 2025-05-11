@@ -4,6 +4,8 @@ import { ErrorResponse, ErrorType } from "../../../utils/customError";
 import { readExcelFromUrl } from "../../../utils/readXLSXData";
 import { jsonResponse } from "../../../utils/jsonResponse";
 import { IATCDocument } from "../../../interface/iATCDocument";
+import { paginationService } from "../../../services/paginationService";
+import { StudentModel } from "../../../models/student.model";
 
 export const getTrainingDataByID = async (
   req: Request,
@@ -23,6 +25,7 @@ export const getTrainingDataByID = async (
   }
 
   const csvData = await readExcelFromUrl(data.attendence);
+
   return jsonResponse(res, {
     status: "success",
     statusCode: 200,

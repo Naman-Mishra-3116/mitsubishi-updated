@@ -11,6 +11,7 @@ export const generateCertificate = (
     collegeLogo: string;
     mitDesignation: string;
     mitHeadName: string;
+    qrCodeImage: string;
   }
 ) => {
   const startDate = moment(commonData.startDate).format("DD MMM");
@@ -116,21 +117,27 @@ export const generateCertificate = (
           font-size: 20px;
           line-height: 1.7;
           text-align: justify;
-          padding: 0 20px;
+          padding: 0 15px;
           margin-top: 58px;
         "
       >
         <p>
-          This is to certify that <strong>${student.studentName}</strong>, a student from
-          <strong>${student.studentCollegeName}</strong>, has successfully attended a
+          This is to certify that <strong>${
+            student.studentName
+          }</strong>, a student from
+          <strong>${
+            student.studentCollegeName
+          }</strong>, has successfully attended a
           <strong>Training Program</strong> on
-          <strong>“${commonData.trainingTitle}”</strong> from
+          <strong>“ ${commonData.trainingTitle} ”</strong> from
           <strong>${startDate} – ${endDate}</strong>.
         </p>
         <p>
           The program was conducted in collaboration with
           <strong>Mitsubishi Electric India</strong> (Authorised Training Center
-          – Factory Automation) at <strong>${commonData.college}, ${commonData.atcCity}</strong>.
+          – Factory Automation) at <strong style="text-transform: capitalize;">${commonData.college.toLowerCase()}, ${
+    commonData.atcCity
+  }</strong>.
         </p>
 
         <pi style="color: #d62828fc; font-weight: bold; font-size: 18px">
@@ -158,12 +165,14 @@ export const generateCertificate = (
               left: 80px;
             "
           />
-          <div style="margin-bottom: 20px">_________________________</div>
+          <div style="margin-bottom: 10px">_________________________</div>
           <strong style="color: #d62828fc; font-weight: bolder"
 >${imageAndMitsubishiData.mitHeadName}</strong
           ><br />
 ${imageAndMitsubishiData.mitDesignation}<br />
-          Mitsubishi Electric India Pvt. Ltd.
+<strong style="color: black; font-weight: bolder"
+>Mitsubishi Electric India Pvt. Ltd.</strong>
+          
         </div>
         <div style="width: 30%; position: relative">
           <img
@@ -181,7 +190,10 @@ ${imageAndMitsubishiData.mitDesignation}<br />
 >${commonData.directorName}</strong
           ><br />
          ${commonData.directorDesignation}<br />
-         ${commonData.college}
+
+         <strong style="color: black; font-weight: bolder; text-transform: capitalize;"
+>${commonData.college.toLowerCase()}</strong>
+         
         </div>
         <div style="width: 30%; position: relative">
           <img
@@ -194,24 +206,29 @@ ${imageAndMitsubishiData.mitDesignation}<br />
               left: 80px;
             "
           />
-          <div style="margin-bottom: 20px; font-weight: bolder">
+          <div style="margin-bottom: 10px; font-weight: bolder">
             _________________________
           </div>
-          <strong style="color: #d62828fc">${commonData.managerName}</strong><br />
+          <strong style="color: #d62828fc">${
+            commonData.managerName
+          }</strong><br />
           Coordinator<br />
-          ${commonData.college}
+          <strong style="color: black; font-weight: bolder; text-transform: capitalize;"
+>${commonData.college.toLowerCase()}</strong>
         </div>
 
-        <div style="text-align: center; font-size: 12px; width: 10%">
-          <img
-            src="QR_CODE_IMAGE"
+        <div style="text-align: center; font-size: 12px; position: relative; width: 8%;">
+          <div style="position: absolute; top: -4px;"> 
+            <img
+            src=${imageAndMitsubishiData.qrCodeImage}
             alt="QR Code"
-            style="border: 1px solid #ccc; padding: 4px; background: #fff"
+            style="border: 1px solid #ccc; padding: 1px; background: #fff; width:85px; height:85px; "
           />
-          <div>Scan to Verify</div>
+          <p style="text-align:center; font-size: 8px; margin-top: -5px;">Scan to Verify</p>
+          </div>
         </div>
       </div>
     </div>
   </body>
-</html>"`;
+</html>`;
 };

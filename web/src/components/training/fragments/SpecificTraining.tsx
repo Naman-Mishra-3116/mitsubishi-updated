@@ -3,13 +3,22 @@ import { API_URL } from "@/enums/apiUrls.enum";
 import { useGetSpecificTraining } from "@/hooks/query/useGetSpecificTraining.query";
 import MLoader from "@/ui/MLoader/MLoader";
 import MTypography from "@/ui/MTypography/MTypography";
-import { Badge, Box, Group, Stack, Text } from "@mantine/core";
+import {
+  Badge,
+  Box,
+  Flex,
+  Group,
+  Stack,
+  Text,
+  UnstyledButton,
+} from "@mantine/core";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import React, { memo, useState } from "react";
 import classes from "../styles/student.module.scss";
 import StudentTable from "./StudentTable";
+import { IconDownload } from "@tabler/icons-react";
 
 const SpecificTraining: React.FC = () => {
   const { id } = useParams();
@@ -28,7 +37,6 @@ const SpecificTraining: React.FC = () => {
         }
       );
 
-      console.log(response, "response");
       setIsLoading(false);
 
       const blob = new Blob([response.data as Blob], {
@@ -43,14 +51,13 @@ const SpecificTraining: React.FC = () => {
       document.body.removeChild(link);
     } catch (error) {
       console.error("Error generating certificates:", error);
-      alert("Something went wrong while generating the certificates.");
     }
   };
 
   return isLoading ? (
     <MLoader
       type="dots"
-      message="Please Wait certificates are beging generated ..."
+      message="Please wait certificates are being generated ..."
     />
   ) : (
     <Box className={classes.top}>
@@ -104,7 +111,7 @@ const SpecificTraining: React.FC = () => {
                   variant="filled"
                   size="lg"
                   radius="md"
-                  w={150}
+                  w={180}
                 >
                   {data?.data?.isApproved ? "Approved" : "Pending"}
                 </Badge>
@@ -112,8 +119,8 @@ const SpecificTraining: React.FC = () => {
             </Group>
             {data?.data?.isApproved && (
               <Group justify="space-between">
-                <Text className={classes.label}>Status</Text>
-                <Box
+                <Text className={classes.label}>Download Certificates</Text>
+                <UnstyledButton
                   className={classes.value}
                   onClick={handleGenerateCertificates}
                 >
@@ -122,11 +129,14 @@ const SpecificTraining: React.FC = () => {
                     variant="filled"
                     size="lg"
                     radius="md"
-                    w={150}
+                    w={180}
+                    className={classes.download}
                   >
-                    Download Certificates
+                    <Flex align={"center"} gap={"sm"}>
+                      <IconDownload size={16} /> <span>Certificates</span>
+                    </Flex>
                   </Badge>
-                </Box>
+                </UnstyledButton>
               </Group>
             )}
           </Stack>

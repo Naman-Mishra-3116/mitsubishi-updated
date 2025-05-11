@@ -67,3 +67,10 @@
   text-align: left;
   flex: 1;
 }
+
+.download {
+  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
+}

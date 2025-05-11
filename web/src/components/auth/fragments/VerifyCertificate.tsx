@@ -1,3 +1,4 @@
+"use client";
 import { useVerifyCertificate } from "@/hooks/query/useVerifyCertificate.query";
 import { useParams } from "next/navigation";
 import React, { memo } from "react";
@@ -30,7 +31,7 @@ const VerifyCertificate: React.FC = () => {
         <strong>College:</strong> {data?.data?.studentCollegeName}
       </div>
       <div className={styles.field}>
-        <strong>Certificate ID:</strong> {data?.data?.certificateId}
+        <strong>Certificate ID:</strong> {id}
       </div>
       <div className={styles.footer}>Verified by Mitsubishi Electric ATC</div>
     </div>

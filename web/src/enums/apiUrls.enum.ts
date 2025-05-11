@@ -12,5 +12,5 @@ export enum API_URL {
   GET_YEARLY_CALENDAR = "/general/get/calendar",
   GENERATE_CERTIFICATE = "/manager/certificate/:trainingId",
   GET_DASHBOARD = "/manager/dashboard",
-  VERIFY_CERTIFICATE = "/manager/verify/:studentId",
+  VERIFY_CERTIFICATE = "/general/verify/:studentId",
 }

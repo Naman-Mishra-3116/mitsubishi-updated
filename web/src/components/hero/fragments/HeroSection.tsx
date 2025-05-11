@@ -5,11 +5,7 @@ import { Box } from "@mantine/core";
 import React, { memo } from "react";
 import classes from "../styles/index.module.scss";
 
-interface IProps {
-  wow?: string;
-}
-
-const HeroSection: React.FC<IProps> = () => {
+const HeroSection: React.FC = () => {
   return (
     <MLayout>
       <Box className={classes.root}>

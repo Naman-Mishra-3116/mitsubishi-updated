@@ -22,6 +22,7 @@ import React, { memo } from "react";
 import classes from "../styles/index.module.scss";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY } from "@/enums/queryKey.enum";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   title: string;
@@ -41,6 +42,7 @@ const CreateTrainingForm: React.FC = () => {
 
   const { mutateAsync } = useCreateTrainingMutation();
   const queryClient = useQueryClient();
+  const router = useRouter();
   const handleSubmit: (data: typeof form.values) => Promise<void> = async (
     values: typeof form.values
   ) => {
@@ -72,14 +74,16 @@ const CreateTrainingForm: React.FC = () => {
     }
 
     const resp = await mutateAsync(fd);
-    if (resp.status === "success") {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_DASHBOARD] });
-    }
-    
+
     notifications.show({
       message: resp.message,
       color: resp.status === "success" ? "green" : "red",
     });
+
+    if (resp.status === "success") {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GET_DASHBOARD] });
+      router.push(`/atc/${resp.data}`);
+    }
   };
 
   const handleDrop = (files: File[]) => {

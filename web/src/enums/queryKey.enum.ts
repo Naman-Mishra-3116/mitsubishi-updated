@@ -7,4 +7,5 @@ export enum QUERY_KEY {
   SPECIFIC_TRAINING = "specific_training",
   GET_YEAR_CALENDAR = "yearly_calendar",
   GET_DASHBOARD = "get_dashboard",
+  VERIFY_CERTIFICATE = "verify_certificate",
 }

@@ -36,8 +36,7 @@ export const genereateCertificateController = async (
   try {
     const trainingId = req.params.trainingId;
     const info = await InfoModel.findOne({});
-    const protocol = req.protocol;
-    const host = req.get("host");
+    const clientUrl = process.env.FRONTEND_URL;
 
     if (!info) {
       return next(
@@ -158,7 +157,8 @@ export const genereateCertificateController = async (
     });
 
     const certificatePromises = students.map(async (student: any) => {
-      const urlLink = `${protocol}://${host}/verify/${student.qrLink}`;
+      const urlLink =
+        (clientUrl?.replace(":qrLink", student.qrLink) as string) || "Error";
       const qrcodeImg = await qrCode.toDataURL(urlLink);
 
       const html = generateCertificate(student, commonData, {

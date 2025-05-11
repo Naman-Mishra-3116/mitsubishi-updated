@@ -5,6 +5,7 @@ import { getMapData } from "./query/getMapData.controller";
 import { getSliderData } from "./query/getSliderData.controller";
 import { getTrainingDataByID } from "./query/getTrainingDataByID.controller";
 import logout from "./query/logout.controller";
+import { verifyCertificateById } from "./query/veryifyCertificateById.controller";
 
 export const generalControllers = {
   getMapData: asyncWrapper(getMapData),
@@ -13,4 +14,5 @@ export const generalControllers = {
   logoutUser: asyncWrapper(logout),
   getTrainingDataByID: asyncWrapper(getTrainingDataByID),
   getCalendar: asyncWrapper(getCalendar),
+  verifyCertificateById: asyncWrapper(verifyCertificateById),
 };

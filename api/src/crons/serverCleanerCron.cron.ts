@@ -64,7 +64,7 @@ const deleteUnusedFilesFrom = (
   }
 };
 
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/10 * * * *", async () => {
   console.log("Cron job started for cleaning unused files...");
 
   try {

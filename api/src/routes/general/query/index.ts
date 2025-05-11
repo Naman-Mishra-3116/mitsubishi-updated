@@ -20,4 +20,8 @@ export const mountGeneralRoutes = (router: Router) => {
   );
 
   router.get("/get/calendar", controllers.generalControllers.getCalendar);
+  router.get(
+    "/verify/:studentId",
+    controllers.generalControllers.verifyCertificateById
+  );
 };

@@ -68,3 +68,89 @@
 .stepDesc {
   color: black !important;
 }
+
+@media (max-width: 1110px) {
+  .heading {
+    font-size: 32px;
+  }
+
+  .desc {
+    font-size: 14px;
+  }
+
+  .left {
+    width: 40%;
+  }
+
+  .root {
+    justify-content: space-between;
+  }
+
+  .right {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .root {
+    flex-direction: column-reverse;
+    padding-top: 10px;
+    gap: 50px !important;
+    padding-bottom: 0px;
+  }
+
+  .left {
+    width: 100%;
+  }
+
+  .right {
+    width: 100%;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .rootStep {
+    gap: 10px !important;
+  }
+  .step {
+    gap: 10px;
+    width: 100%;
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .vs {
+    display: none;
+  }
+
+  .stepLabel {
+    text-align: center;
+  }
+
+  .stepDesc {
+    text-align: center;
+  }
+
+  .aimBox {
+    padding: 6px 14px;
+  }
+  .aim {
+    font-size: 18px !important;
+  }
+
+  .top {
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 440px) {
+  .heading {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .stepDesc {
+    line-height: 20px !important;
+  }
+
+}

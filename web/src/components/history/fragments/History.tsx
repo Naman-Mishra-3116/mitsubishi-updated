@@ -24,6 +24,8 @@ const History: React.FC = () => {
               orientation="vertical"
               color="red"
               classNames={{
+                steps: classes.rootStep,
+                step: classes.step,
                 verticalSeparator: classes.vs,
                 stepLabel: classes.stepLabel,
                 stepDescription: classes.stepDesc,

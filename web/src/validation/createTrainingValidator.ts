@@ -43,7 +43,8 @@ export const trainingFormSchema = yup.object().shape({
     .number()
     .required("Total students is required")
     .typeError("Total students must be a number")
-    .min(1, "There must be at least one student"),
+    .min(1, "There must be at least one student")
+    .max(200, "Training can contain at most 200 students"),
   trainingImages: yup
     .array()
     .of(

@@ -33,13 +33,11 @@ const SpecificTraining: React.FC = () => {
           API_URL.GENERATE_CERTIFICATE.replace(":trainingId", id as string),
         {},
         {
+          withCredentials: true,
           responseType: "blob",
         }
       );
-      console.log(response);
-
       setIsLoading(false);
-
       const blob = new Blob([response.data as Blob], {
         type: "application/zip",
       });
@@ -112,7 +110,7 @@ const SpecificTraining: React.FC = () => {
                   variant="filled"
                   size="lg"
                   radius="md"
-                  w={180}
+                  w={150}
                 >
                   {data?.data?.isApproved ? "Approved" : "Pending"}
                 </Badge>
@@ -130,7 +128,7 @@ const SpecificTraining: React.FC = () => {
                     variant="filled"
                     size="lg"
                     radius="md"
-                    w={180}
+                    w={150}
                     className={classes.download}
                   >
                     <Flex align={"center"} gap={"sm"}>

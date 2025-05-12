@@ -1,5 +1,7 @@
 "use client";
+import { QUERY_KEY } from "@/enums/queryKey.enum";
 import { useCreateTrainingMutation } from "@/hooks/mutation/useCreateTrainingMutation.mutation";
+import { useAppSelector } from "@/store/hooks";
 import MButton from "@/ui/MButton/MButton";
 import openImageCropperModal from "@/ui/MImageCropper/fragments/openCropperModal";
 import MInput from "@/ui/MInput/MInput";
@@ -17,12 +19,12 @@ import "@mantine/dropzone/styles.css";
 import { useForm, yupResolver } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { IconCrop, IconPhoto, IconUpload, IconX } from "@tabler/icons-react";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { memo } from "react";
 import classes from "../styles/index.module.scss";
-import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEY } from "@/enums/queryKey.enum";
-import { useRouter } from "next/navigation";
+import ProfileWarning from "./ProfileWarning";
 
 type FormValues = {
   title: string;
@@ -39,6 +41,9 @@ const CreateTrainingForm: React.FC = () => {
     initialValues: createTrainingInitails,
     validate: yupResolver(trainingFormSchema),
   });
+  const profileCompleted = useAppSelector(
+    (state) => state.auth.profileCompleted
+  );
 
   const { mutateAsync } = useCreateTrainingMutation();
   const queryClient = useQueryClient();
@@ -99,7 +104,7 @@ const CreateTrainingForm: React.FC = () => {
     updated.splice(index, 1);
     form.setFieldValue("trainingImages", updated);
   };
-  return (
+  return profileCompleted ? (
     <Box className={classes.rootBox}>
       <Box className={classes.header}>
         <MTypography
@@ -299,6 +304,8 @@ const CreateTrainingForm: React.FC = () => {
         <MButton type="submit" text="Update" radius="md" variant="filled" />
       </form>
     </Box>
+  ) : (
+    <ProfileWarning />
   );
 };
 

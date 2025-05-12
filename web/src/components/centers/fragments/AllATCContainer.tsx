@@ -46,10 +46,10 @@ const AllATCContainer: React.FC = () => {
                 key={index}
                 imageURL={item.atcImage}
                 address={item.address}
-                atcName={item.atcName}
+                atcName={item.atcName.toLowerCase()}
                 city={item.city}
                 state={item.state}
-                collegeName={item.collegeName}
+                collegeName={item.collegeName.toLowerCase()}
                 managerEmail={item.managerEmail}
                 managerName={item.managerName}
                 totalStudents="200"
@@ -57,8 +57,46 @@ const AllATCContainer: React.FC = () => {
               />
             );
           })}
+
+          {data?.data?.data?.map((item: AtcItem, index: number) => {
+            return (
+              <Card
+                key={index}
+                imageURL={item.atcImage}
+                address={item.address}
+                atcName={item.atcName.toLowerCase()}
+                city={item.city}
+                state={item.state}
+                collegeName={item.collegeName.toLowerCase()}
+                managerEmail={item.managerEmail}
+                managerName={item.managerName}
+                totalStudents="200"
+                totalTrainings={item.totalTraining}
+              />
+            );
+          })}
+
+          {data?.data?.data?.map((item: AtcItem, index: number) => {
+            return (
+              <Card
+                key={index}
+                imageURL={item.atcImage}
+                address={item.address}
+                atcName={item.atcName.toLowerCase()}
+                city={item.city}
+                state={item.state}
+                collegeName={item.collegeName.toLowerCase()}
+                managerEmail={item.managerEmail}
+                managerName={item.managerName}
+                totalStudents="200"
+                totalTrainings={item.totalTraining}
+              />
+            );
+          })}
+
           <Box className={classes.pagination}>
             <MPagination
+              pageLimit={CONSTANT.PAGE_LIMIT}
               page={page}
               setPage={setPage}
               totalDocuments={data?.data?.totalDocuments}

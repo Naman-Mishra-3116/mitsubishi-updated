@@ -3,16 +3,18 @@ import { ROUTES } from "@/enums/routes.enum";
 import { useAppSelector } from "@/store/hooks";
 import MButton from "@/ui/MButton/MButton";
 import MImage from "@/ui/MImage/MImage";
-import { Box } from "@mantine/core";
+import { Box, Burger, Drawer } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { memo } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import classes from "../styles/landing.module.scss";
+import { useDisclosure } from "@mantine/hooks";
 
 const LandingHeader: React.FC = () => {
   const path = usePathname();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const [opened, { toggle }] = useDisclosure();
 
   return (
     <Box className={classes.root}>
@@ -61,7 +63,51 @@ const LandingHeader: React.FC = () => {
             className={classes.button}
           />
         </Link>
+
+        <Burger
+          className={classes.burgerButton}
+          opened={opened}
+          onClick={toggle}
+          aria-label="Toggle navigation"
+        />
       </Box>
+
+      <Drawer
+        opened={opened}
+        onClose={toggle}
+        position="right"
+        size={"240px"}
+        c={"black"}
+        zIndex={10000}
+      >
+        <Box className={classes.collapseBox}>
+          <Link
+            href={ROUTES.CENTER}
+            className={`${classes.blink} ${
+              path.includes(ROUTES.CENTER) ? classes.active : ""
+            }`}
+          >
+            Centers
+          </Link>
+          <Link
+            href={ROUTES.CALENDER}
+            className={`${classes.blink} ${
+              path.includes(ROUTES.CALENDER) ? classes.active : ""
+            }`}
+          >
+            Calender
+          </Link>
+
+          <Link
+            href={isAuthenticated ? ROUTES.DASHBOARD : ROUTES.LOGIN}
+            className={`${classes.blink} ${
+              path.includes(ROUTES.CALENDER) ? classes.active : ""
+            }`}
+          >
+            Login
+          </Link>
+        </Box>
+      </Drawer>
     </Box>
   );
 };

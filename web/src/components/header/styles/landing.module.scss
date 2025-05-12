@@ -6,6 +6,10 @@
   padding: 15px 60px;
   width: 100%;
   justify-content: space-between;
+
+  @media (max-width: 625px) {
+    padding: 15px 24px;
+  }
 }
 
 .imageContainer {
@@ -38,6 +42,10 @@
   &:hover {
     background: #ca1a10 !important;
   }
+
+  @media (max-width: 490px) {
+    display: none;
+  }
 }
 
 .buttonContainer {
@@ -45,6 +53,10 @@
   justify-content: center;
   align-items: center;
   gap: 50px;
+
+  @media (max-width: 560px) {
+    gap: 20px;
+  }
 }
 
 .link {
@@ -53,6 +65,9 @@
   font-weight: bold;
   font-size: 20px;
   transition: text-decoration 0.3s ease;
+  @media (max-width: 490px) {
+    display: none;
+  }
 }
 
 .link:hover {
@@ -68,3 +83,37 @@
   text-underline-offset: 6px;
   text-decoration-thickness: 2px;
 }
+
+.burgerButton {
+  display: none;
+  @media (max-width: 490px) {
+    display: block;
+  }
+}
+
+.collapseBox {
+  align-items: center;
+  justify-content: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.blink {
+  text-decoration: none;
+  color: #e0130b !important;
+  font-weight: bold;
+  font-size: 20px;
+  transition: text-decoration 0.3s ease;
+}
+
+.blink:hover {
+  color: #ca1a10;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+

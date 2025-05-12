@@ -15,7 +15,7 @@ interface IProps {
   city: string;
   state: string;
   totalStudents: string;
-  imageURL:string;
+  imageURL: string;
 }
 
 const Card: React.FC<IProps> = ({

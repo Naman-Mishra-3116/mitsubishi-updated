@@ -7,6 +7,10 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media (max-width: 720px) {
+    text-align: center;
+  }
 }
 
 .card {
@@ -43,7 +47,7 @@
   text-align: center;
   font-weight: 600;
   font-size: 22px;
-   text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .desc {
@@ -85,21 +89,29 @@
 }
 
 .icon {
-  font-size: 14px;
+  size: 14px !important;
   color: #133e87 !important;
+
+  @media (max-width: 420px) {
+    size: 12px !important;
+  }
 }
 
 .txt {
   font-size: 14px;
   color: #020d22 !important;
   font-weight: bold;
+
+  @media (max-width: 420px) {
+    font-size: 12px;
+  }
 }
 
 .box {
   align-self: center;
   width: 80%;
 
-   @media (max-width: 1300px) {
+  @media (max-width: 1300px) {
     align-self: none;
     width: 95%;
   }
@@ -119,6 +131,10 @@
     width: 90%;
   }
 
+  @media (max-width: 420px) {
+    align-self: none;
+    width: 100%;
+  }
 }
 
 .training {

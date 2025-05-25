@@ -10,6 +10,7 @@ export const request = async (config: Axios.AxiosXHRConfig<unknown>) => {
     return response.data;
   };
 
+  // eslint-disable-next-line
   const onError = (error: any) => {
     return error.response.data;
   };

@@ -1,4 +1,3 @@
-import MLayout from "@/ui/MLayout/MLayout";
 import { Box } from "@mantine/core";
 import React, { memo } from "react";
 import TrainingCarousel from "./TrainingCarousel";

@@ -22,7 +22,7 @@ interface IProps {
 const MImageCropper: React.FC<IProps> = ({ saveImage, cropShape }) => {
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+  const [, setCroppedImage] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [cropArea, setCropArea] = useState<ICropArea | null>(null);

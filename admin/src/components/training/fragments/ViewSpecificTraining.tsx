@@ -25,7 +25,6 @@ const ViewSpecificTraining: React.FC = () => {
   const queryClient = useQueryClient();
   const [opened, { open, close }] = useDisclosure(false);
 
-  console.log(data?.data);
   const handleApprove = async () => {
     const confirm = await confirmationAlert({
       title: "Approve Training",

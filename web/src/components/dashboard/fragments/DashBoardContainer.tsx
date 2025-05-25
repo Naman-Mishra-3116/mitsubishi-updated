@@ -9,7 +9,6 @@ import { useGetATCDashboard } from "@/hooks/query/useGetATCDashboard.query";
 const DashBoardContainer: React.FC = () => {
   const { data } = useGetATCDashboard();
 
-  console.log(data);
   return (
     <Box className={classes.root}>
       <DashboardCard

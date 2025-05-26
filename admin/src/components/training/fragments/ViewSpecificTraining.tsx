@@ -1,30 +1,20 @@
 "use client";
+import { QUERY_KEY } from "@/enums/queryKey.enum";
+import { useApproveTraining } from "@/hooks/mutation/useApproveTraining.mutation";
+import { useGetSpecificTraining } from "@/hooks/query/useGetSpecificTraining.query";
+import { useAppSelector } from "@/store/hooks";
+import { confirmationAlert } from "@/ui/MAlerts/confirmationAlert";
 import MTypography from "@/ui/MTypography/MTypography";
-import {
-  Badge,
-  Box,
-  Flex,
-  Group,
-  Stack,
-  Text,
-  UnstyledButton,
-} from "@mantine/core";
+import { Badge, Box, Group, Stack, Text, UnstyledButton } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import React, { memo } from "react";
 import classes from "../styles/viewSpecific.module.scss";
 import StudentTable from "./StudentTable";
-import { useGetSpecificTraining } from "@/hooks/query/useGetSpecificTraining.query";
-import { useApproveTraining } from "@/hooks/mutation/useApproveTraining.mutation";
-import MButton from "@/ui/MButton/MButton";
-import { useAppSelector } from "@/store/hooks";
-import { confirmationAlert } from "@/ui/MAlerts/confirmationAlert";
-import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEY } from "@/enums/queryKey.enum";
-import { notifications } from "@mantine/notifications";
 import ViewAllTrainingImages from "./ViewAllTrainingImages";
-import { useDisclosure } from "@mantine/hooks";
-import { IconDownload } from "@tabler/icons-react";
 
 const ViewSpecificTraining: React.FC = () => {
   const { trainingId } = useParams();

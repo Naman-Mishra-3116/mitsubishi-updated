@@ -1,6 +1,14 @@
 "use client";
 import MTypography from "@/ui/MTypography/MTypography";
-import { Badge, Box, Group, Stack, Text } from "@mantine/core";
+import {
+  Badge,
+  Box,
+  Flex,
+  Group,
+  Stack,
+  Text,
+  UnstyledButton,
+} from "@mantine/core";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import React, { memo } from "react";
@@ -16,6 +24,7 @@ import { QUERY_KEY } from "@/enums/queryKey.enum";
 import { notifications } from "@mantine/notifications";
 import ViewAllTrainingImages from "./ViewAllTrainingImages";
 import { useDisclosure } from "@mantine/hooks";
+import { IconDownload } from "@tabler/icons-react";
 
 const ViewSpecificTraining: React.FC = () => {
   const { trainingId } = useParams();
@@ -111,16 +120,21 @@ const ViewSpecificTraining: React.FC = () => {
             {permission === "WRITE" && !data?.data?.isApproved ? (
               <Group justify="space-between">
                 <Text className={classes.label}>Approve Training</Text>
-                <Box className={classes.value}>
-                  <MButton
-                    text="Approve"
+                <UnstyledButton
+                  className={classes.value}
+                  onClick={handleApprove}
+                >
+                  <Badge
+                    color={"blue"}
                     variant="filled"
-                    size="md"
-                    p="sm"
+                    size="lg"
                     radius="md"
-                    handleClick={handleApprove}
-                  />
-                </Box>
+                    w={150}
+                    className={classes.download}
+                  >
+                    Approve
+                  </Badge>
+                </UnstyledButton>
               </Group>
             ) : (
               <Group justify="space-between">

@@ -32,7 +32,7 @@ const uploadsPath = path.resolve(__dirname, "..", "..", "uploads");
 
 app.use("/uploads", express.static(uploadsPath));
 app.use(cookieParser(process.env.COOKIE_SECRET ?? "aVerySecretCookie"));
-// app.use(morgan("tiny"));
+app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

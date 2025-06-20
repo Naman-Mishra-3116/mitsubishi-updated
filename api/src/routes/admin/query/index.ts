@@ -9,7 +9,7 @@ const mountAdminRouter = (router: Router) => {
 
   router.post(
     "/createAdmin",
-    validateJWTToken,
+   // validateJWTToken,
     UploadFile.single("profileImage"),
     controllers.adminController.creatAdmin
   );
